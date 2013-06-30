@@ -10,3 +10,4 @@ To build installer, follow these steps:
 4. Right click on install\setup.nsi and choose 'Compile NSIS Script'
 5. vsCCM.exe installer is now available in the install folder.
 
+NOTE that you need NSIS (http://nsis.sourceforge.net) to be able to build the installer.
