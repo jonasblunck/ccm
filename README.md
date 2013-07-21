@@ -13,14 +13,15 @@ There are two parts included with the installer:
 ## Command line usage
 To CCM.exe, simply use one of the two parameters:
 
-* CCM.exe <path-to-config-file>
-* CCM.exe <folder-path-to-analyze>
+* CCM.exe ```<path-to-config-file>```
+* CCM.exe ```<folder-path-to-analyze>```
 
 Note that if you want to override any default parameters, such as output format, number of metrics to be displayed, etc, you need to pass in a config file (see below).
 
 # Configuration file
 Below is an example of a configuration file.
 
+```
  <ccm>
     <exclude>
      <file>myfile.cpp</file>
@@ -37,15 +38,32 @@ Below is an example of a configuration file.
      <fileExtension>.cxx</fileExtension>
    </fileExtensions>
  </ccm>
+```
 
-* <exclude> element can be used to exclude files and/or folders from analysis.
-* <analyze> element specified which folders to analyze. All paths in the <folder> element is relative to the location of the configuration file.
-* <recursive> element tells CCM to traverse folders or not.
-* <outputter> element tells CCM how to output the data. Valid values are 'XML', 'Tabbed', 'Text'.
-* <suppressMethodSignatures> set to 'yes' and CCM will only print the name of the method and not the full signature.
-* <numMetrics> tells CCM how many metrics that should be reported. Only the top x functions will be reported.
-* <fileExtensions> can be used to add additional file extensions for analysis. Per default, these are included: .h, .cpp, .c, .hpp, .cs, .js and .ts 
+* ```<exclude>``` element can be used to exclude files and/or folders from analysis.
+* ```<analyze>``` element specified which folders to analyze. All paths in the ```<folder>``` element is relative to the location of the configuration file.
+* ```<recursive>``` element tells CCM to traverse folders or not.
+* ```<outputter>``` element tells CCM how to output the data. Valid values are 'XML', 'Tabbed', 'Text'.
+* ```<suppressMethodSignatures>``` set to 'yes' and CCM will only print the name of the method and not the full signature.
+* ```<numMetrics>``` tells CCM how many metrics that should be reported. Only the top x functions will be reported.
+* ```<fileExtensions>``` can be used to add additional file extensions for analysis. Per default, these are included: .h, .cpp, .c, .hpp, .cs, .js and .ts 
 
+## Example output
+Below is example output from the Text outputter (can be contolled in the ```<outputter>``` element in the config file).
+```
+Driver::HandleDirectory(string basePath,string path) : 7 - simple, without much risk (\Driver.cs@line 141)
+Driver::IsValidFile(string filename) : 6 - simple, without much risk (\Driver.cs@line 84)
+Program::CreateConfigurationFromArgs(string [ ] args) : 6 - simple, without much risk (\Program.cs@line 71)
+Driver::PathShouldBeExcluded(string path) : 5 - simple, without much risk (\Driver.cs@line 109)
+XmlOutputter::Output(List<ccMetric>metrics,List<ErrorInfo>errors,bool verbose) : 5 - simple, without much risk (\XmlOutputter.cs@line 17)
+ConsoleOutputter::Output(List<ccMetric>metrics,List<ErrorInfo>errors,bool verbose) : 4 - simple, without much risk (\ConsoleOutputter.cs@line 12)
+Driver::AnalyzeFilestream(object context) : 4 - simple, without much risk (\Driver.cs@line 47)
+TabbedOutputter::Output(List<ccMetric>metrics,List<ErrorInfo>errors,bool verbose) : 4 - simple, without much risk (\TabbedOutputter.cs@line 12)
+Program::OutputterFactory(string outputType) : 3 - simple, without much risk (\Program.cs@line 60)
+Program::ValidateArgs(string [ ] args) : 2 - simple, without much risk (\Program.cs@line 15)
+Program::LoadConfiguration(string [ ] args) : 2 - simple, without much risk (\Program.cs@line 97)
+Program::Main(string [ ] args) : 2 - simple, without much risk (\Program.cs@line 122)
+```
 
 ## Platforms
 CCM is built in C#, targetting .NET 3.5 and as such runs on Windows. The commandline version, CCM.exe, can run on Linux distributions using the mono framework (http://www.monoproject.org).
