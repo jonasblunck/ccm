@@ -1,3 +1,6 @@
+CCM
+===
+
 ## Overview
 
 CCM is a tool that analyzes c, c++, c#, javascript and TypeScript code and reports back with cyclomatic complexity metric.
@@ -10,7 +13,8 @@ There are two parts included with the installer:
 ## Command line usage
 To analyze 
 
-
+## Platforms
+CCM is built in C#, targetting .NET 3.5 and as such runs on Windows. The commandline version, CCM.exe, can run on Linux distributions using the mono framework (http://www.monoproject.org).
 
 ## Building the code
 
