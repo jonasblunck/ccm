@@ -18,7 +18,7 @@ To CCM.exe, simply use one of the two parameters:
 
 Note that if you want to override any default parameters, such as output format, number of metrics to be displayed, etc, you need to pass in a config file (see below).
 
-# Configuration file
+### Configuration file
 Below is an example of a configuration file.
 
 ```
@@ -48,7 +48,7 @@ Below is an example of a configuration file.
 * ```<numMetrics>``` tells CCM how many metrics that should be reported. Only the top x functions will be reported.
 * ```<fileExtensions>``` can be used to add additional file extensions for analysis. Per default, these are included: .h, .cpp, .c, .hpp, .cs, .js and .ts 
 
-## Example output
+### Example output
 Below is example output from the Text outputter (can be contolled in the ```<outputter>``` element in the config file).
 ```
 Driver::HandleDirectory(string basePath,string path) : 7 - simple, without much risk (\Driver.cs@line 141)
