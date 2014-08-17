@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCMTests", "source\CCMTests\CCMTests.csproj", "{3D2F9A94-3F7D-4527-8778-6CD605CA1641}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCMEngine", "source\CCMEngine\CCMEngine.csproj", "{D7F03C3F-43F3-4039-B746-42B5EB53A809}"
@@ -12,6 +14,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A2DA4928-7668-4B04-8ED5-2BE0318ACF98}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ccmUI", "source\ccmUI\ccmUI.csproj", "{EC6E3E0E-FE05-4D9F-898F-F656D5D66A95}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ccmPack", "ccmPack\ccmPack.csproj", "{79C2D75E-3E2A-4E4E-B8DD-8A10664716CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +53,12 @@ Global
 		{EC6E3E0E-FE05-4D9F-898F-F656D5D66A95}.Release_WithCoverageFeature|Any CPU.ActiveCfg = Release|Any CPU
 		{EC6E3E0E-FE05-4D9F-898F-F656D5D66A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC6E3E0E-FE05-4D9F-898F-F656D5D66A95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79C2D75E-3E2A-4E4E-B8DD-8A10664716CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79C2D75E-3E2A-4E4E-B8DD-8A10664716CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79C2D75E-3E2A-4E4E-B8DD-8A10664716CB}.Release_WithCoverageFeature|Any CPU.ActiveCfg = Release|Any CPU
+		{79C2D75E-3E2A-4E4E-B8DD-8A10664716CB}.Release_WithCoverageFeature|Any CPU.Build.0 = Release|Any CPU
+		{79C2D75E-3E2A-4E4E-B8DD-8A10664716CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79C2D75E-3E2A-4E4E-B8DD-8A10664716CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
