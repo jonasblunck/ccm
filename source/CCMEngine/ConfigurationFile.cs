@@ -16,6 +16,8 @@ namespace CCMEngine
     private int numMetrics = 30;
     private string outputType = "Text"; // default to Text output
     private bool suppressMethodSignatures = false;
+    private ParserSwitchBehavior switchBehavior = ParserSwitchBehavior.TraditionalInclude;
+
     public List<string> SupportedExtensions { get; private set; }
 
     public ConfigurationFile(XmlDocument doc)
@@ -23,6 +25,23 @@ namespace CCMEngine
       this.SupportedExtensions = new List<string>();
 
       Parse(doc);
+    }
+
+    private void ParseSwitchStatementBehavior(XmlDocument doc)
+    {
+      XmlElement recursive = (XmlElement)doc.SelectSingleNode("/ccm/switchStatementBehavior");
+
+      if (null != recursive)
+      {
+        string setting = recursive.InnerText;
+
+        if (setting.Equals("TraditionalInclude", StringComparison.InvariantCultureIgnoreCase))
+          this.switchBehavior = ParserSwitchBehavior.TraditionalInclude;
+        else if (setting.Equals("IgnoreCases", StringComparison.InvariantCultureIgnoreCase))
+          this.switchBehavior = ParserSwitchBehavior.IgnoreCases;
+        else
+          throw new InvalidOperationException(string.Format("Unknown switchStatementBehavior: {0}", setting));
+      }
     }
 
     private void ParseRecursiveSetting(XmlDocument doc)
@@ -141,6 +160,7 @@ namespace CCMEngine
       ParseOutputXML(doc);
       ParseSuppressSignatureElement(doc);
       ParseSupportedFileExtensions(doc);
+      ParseSwitchStatementBehavior(doc);
 
       if (doc.SelectSingleNode("/ccm/outputXML") != null)
       {
@@ -218,6 +238,11 @@ namespace CCMEngine
     public bool SuppressMethodSignatures
     {
       get { return this.suppressMethodSignatures; }
+    }
+
+    public ParserSwitchBehavior SwitchStatementBehavior
+    {
+      get { return this.switchBehavior; }
     }
   }
 }

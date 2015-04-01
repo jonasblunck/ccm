@@ -46,6 +46,7 @@ namespace CCM
         "    <recursive>yes</recursive>\r\n" +
         "    <outputter>XML|Tabbed|Text</outputter>\r\n" +
         "    <numMetrics>30</numMetrics>\r\n" +
+        "    <switchStatementBehavior>TraditionalInclude|IgnoreCases</switchStatementBehavior>\r\n" +
         "    <fileExtensions>\r\n" +
         "      <fileExtension>.cxx</fileExtension>\r\n" +
         "    </fileExtensions>\r\n" +

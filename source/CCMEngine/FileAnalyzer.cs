@@ -18,8 +18,10 @@ namespace CCMEngine
     bool suppressMethodSignatures = false;
     string filename;
     char[] buffer = null;
+    ParserSwitchBehavior switchBehavior;
 
-    public FileAnalyzer(StreamReader filestream, ICCMNotify callback, object context, bool suppressMethodSignatures, string filename)
+    public FileAnalyzer(StreamReader filestream, ICCMNotify callback, object context, bool suppressMethodSignatures, string filename,
+      ParserSwitchBehavior switchBehavior = ParserSwitchBehavior.TraditionalInclude)
     {
       this.buffer = new char[filestream.BaseStream.Length];
       filestream.Read(this.buffer, 0, this.buffer.Length);
@@ -40,6 +42,7 @@ namespace CCMEngine
       this.context = context;
       this.suppressMethodSignatures = suppressMethodSignatures;
       this.filename = filename;
+      this.switchBehavior = switchBehavior;
     }
 
     private int GetLineNumber(int offset)
@@ -69,7 +72,7 @@ namespace CCMEngine
 
     private void OnFunction(string unit, int streamOffset, IFunctionStream funcStream)
     {
-      BlockAnalyzer analyzer = new BlockAnalyzer(this.parser, funcStream, this.OnLocalFunction);
+      BlockAnalyzer analyzer = new BlockAnalyzer(this.parser, funcStream, this.OnLocalFunction, this.switchBehavior);
       int ccm = 1 + analyzer.ConsumeBlockCalculateAdditionalComplexity();
 
       var metric = new ccMetric(this.filename, unit, ccm);

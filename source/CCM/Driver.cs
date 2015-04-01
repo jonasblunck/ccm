@@ -50,7 +50,8 @@ namespace CCM
       try
       {
         FileAnalyzer analyzer =
-          new FileAnalyzer(parameters.stream, this.listener, null, this.configFile.SuppressMethodSignatures, parameters.filename);
+          new FileAnalyzer(parameters.stream, this.listener, null, this.configFile.SuppressMethodSignatures, 
+            parameters.filename, this.configFile.SwitchStatementBehavior);
 
         analyzer.Analyze();
         parameters.stream.Close(); // free up the stream.

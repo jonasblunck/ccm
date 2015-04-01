@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCMTests", "source\CCMTests\CCMTests.csproj", "{3D2F9A94-3F7D-4527-8778-6CD605CA1641}"
 EndProject
@@ -12,6 +12,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vsCCM", "source\vsCCM\vsCCM.csproj", "{AEC700DE-976A-49A2-B9D4-120BAFAD1B8E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A2DA4928-7668-4B04-8ED5-2BE0318ACF98}"
+	ProjectSection(SolutionItems) = preProject
+		bin\ccm.config = bin\ccm.config
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ccmUI", "source\ccmUI\ccmUI.csproj", "{EC6E3E0E-FE05-4D9F-898F-F656D5D66A95}"
 EndProject

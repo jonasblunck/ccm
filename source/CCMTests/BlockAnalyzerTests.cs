@@ -364,8 +364,60 @@ namespace CCMTests
       BlockAnalyzer analyzer = new BlockAnalyzer(parser);
 
       Assert.AreEqual(0, analyzer.ConsumeBlockCalculateAdditionalComplexity());
+    
+    }
 
-      
+    [TestMethod]
+    public void TestCaseInsideSwitchCounted_WhenSwitchBehaviorTraditionalInclude()
+    {
+      string code = "{             " +
+                    "  switch(x)) {   " +
+                    "     case 3: break; " +
+                    "     case 4: break; " +
+                    "     default: break; " +
+                    "  } " +
+                    "}";
+
+      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      BlockAnalyzer analyzer = new BlockAnalyzer(parser, null, null, ParserSwitchBehavior.TraditionalInclude);
+
+      Assert.AreEqual(2, analyzer.ConsumeBlockCalculateAdditionalComplexity());
+    }
+
+    [TestMethod]
+    public void TestCaseInsideSwitchNotCounted_WhenSwitchBehaviorIgnoreCases()
+    {
+      string code = "{             " +
+                    "  switch(x)) {   " +
+                    "     case 3: break; " +
+                    "     case 4: break; " +
+                    "     default: break; " +
+                    "  } " +
+                    "}";
+
+      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      BlockAnalyzer analyzer = new BlockAnalyzer(parser, null, null, ParserSwitchBehavior.IgnoreCases);
+
+      Assert.AreEqual(0, analyzer.ConsumeBlockCalculateAdditionalComplexity());
+    }
+
+    [TestMethod]
+    public void TestBranchInCaseIncludedButNotCaseStatements_WhenSwitchBehaviorIgnoreCases()
+    {
+      // with ParserSwitchBehavior.IgnoreCases we ignore switch cases and just include branches inside of case statements
+
+      string code = "{             " +
+                    "  switch(x)) {   " +
+                    "     case 3: if (a) { // do something } ; " +
+                    "     case 4: break; " +
+                    "     default: break; " +
+                    "  } " +
+                    "}";
+
+      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      BlockAnalyzer analyzer = new BlockAnalyzer(parser, null, null, ParserSwitchBehavior.IgnoreCases);
+
+      Assert.AreEqual(1, analyzer.ConsumeBlockCalculateAdditionalComplexity());
     }
 
   }

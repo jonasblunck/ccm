@@ -6,6 +6,7 @@ using System.IO;
 namespace CCMEngine
 {
   public delegate void OnLocalFunctionDelegate(IFunctionStream functionStream);
+  public enum ParserSwitchBehavior { TraditionalInclude, IgnoreCases };
 
   // BlockAnalyzer analyzes a block of code beginning with "{" and ending with "}"
   //  the block of code is consumed from the parser and the CC metric is returned
@@ -17,14 +18,17 @@ namespace CCMEngine
     private IFunctionStream functionStream;
     private OnLocalFunctionDelegate onLocalFunctionDelegate;
 
-    public BlockAnalyzer(LookAheadLangParser parser, IFunctionStream functionStream = null, OnLocalFunctionDelegate onLocalFunctionDelegate = null)
+    public BlockAnalyzer(LookAheadLangParser parser, IFunctionStream functionStream = null, OnLocalFunctionDelegate onLocalFunctionDelegate = null,
+      ParserSwitchBehavior switchBehavior = ParserSwitchBehavior.TraditionalInclude)
     {
       this.parser = parser;
       this.conditionalsWithExpressions = new List<string>(
         new string[] { "if", "while", "foreach", "for", "else if", });
 
-      this.branchPointKeywords = new List<string>(
-        new string[] { "case", "catch" });
+      this.branchPointKeywords = new List<string>(new string[] { "catch" });
+
+      if (switchBehavior == ParserSwitchBehavior.TraditionalInclude)
+        this.branchPointKeywords.Add("case");
 
       this.functionStream = functionStream;
       this.onLocalFunctionDelegate = onLocalFunctionDelegate;
