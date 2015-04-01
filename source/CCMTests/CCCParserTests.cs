@@ -599,15 +599,16 @@ namespace CCMTests
       Assert.AreEqual("GetMimeData", context.NextFunction());
     }
 
-    //[TestMethod]
-    //public void TestMethodNameWithGenericsAndParameterWithGenericsIsReturnedAsFunction()
-    //{
-    //  string code = "TypeX<T>(TypeY<T> sourceArray){}";
-    //  TestContext context = CCCParserTests.SetupContext(code);
+    [TestMethod]
+    [Ignore]
+    public void TestMethodNameWithGenericsAndParameterWithGenericsIsReturnedAsFunction()
+    {
+      string code = "TypeX<T>(TypeY<T> sourceArray){}";
+      TestContext context = CCCParserTests.SetupContext(code);
 
-    //  Assert.IsTrue(context.NextIsFunction());
-    //  Assert.AreEqual("TypeX<T>(TypeY<T> sourceArray)", context.NextFunction());
-    //}
+      Assert.IsTrue(context.NextIsFunction());
+      Assert.AreEqual("TypeX<T>(TypeY<T> sourceArray)", context.NextFunction()); 
+    }
 
     [TestMethod]
     public void FunctionNameWithGenericsIsRecognizedAsFunction()
