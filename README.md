@@ -11,12 +11,20 @@ There are two parts included with the installer:
 * vsCCM; a Visual Studio 2008, 2010 and 2012 add-in that will add a new toolbar for integrating CCM with Visual Studio.
 
 ## Command line usage
-To CCM.exe, simply use one of the two parameters:
+To CCM.exe, simply use one of the two modes for invocation:
 
 * CCM.exe ```<path-to-config-file>```
-* CCM.exe ```<folder-path-to-analyze>```
+* CCM.exe ```<folder-path-to-analyze>``` ```[/xml]``` ```[/ignorecases]``` ```[v]``` 
 
-Note that if you want to override any default parameters, such as output format, number of metrics to be displayed, etc, you need to pass in a config file (see below).
+### Arguments
+```
+   <path-to-config-file>    Path to configuration file. See structure of file below. 
+                            This option gives the best control over how ccm behaves.
+   <folder-path-to-analyze> Path to directory which ccm will analyze.
+   /xml                     Output results as XML (this parameter only valid if a config file is not passed in).
+   /ignorecases             Don't count each case in switch block as a branching point (only valid if config file is not passed in).
+   /v                       Print the version number of ccm.exe.
+```
 
 ### Configuration file
 Below is an example of a configuration file.
@@ -33,6 +41,7 @@ Below is an example of a configuration file.
    <recursive>yes</recursive>
    <outputter>XML</outputter>
    <suppressMethodSignatures>yes</suppressMethodSignatures>
+   <switchStatementBehavior>IgnoreCases</switchStatementBehavior>
    <numMetrics>30</numMetrics>
    <fileExtensions>
      <fileExtension>.cxx</fileExtension>
@@ -45,6 +54,7 @@ Below is an example of a configuration file.
 * ```<recursive>``` element tells CCM to traverse folders or not.
 * ```<outputter>``` element tells CCM how to output the data. Valid values are 'XML', 'Tabbed', 'Text'.
 * ```<suppressMethodSignatures>``` set to 'yes' and CCM will only print the name of the method and not the full signature.
+* ```<switchStatementBehavior>``` set to 'IgnoreCases' and CCM will not count each case statement in switch blocks as a branching point.
 * ```<numMetrics>``` tells CCM how many metrics that should be reported. Only the top x functions will be reported.
 * ```<fileExtensions>``` can be used to add additional file extensions for analysis. Per default, these are included: .h, .cpp, .c, .hpp, .cs, .js and .ts 
 
