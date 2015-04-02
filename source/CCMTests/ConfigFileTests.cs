@@ -319,5 +319,58 @@ namespace CCMTests
       ConfigurationFile file = new ConfigurationFile(doc);
     }
 
+    [TestMethod]
+    public void TestDefaultSwitchBehaviorIsTraditional()
+    {
+      string config = "<ccm> " +
+                      " <exclude>" +
+                      "   <file>file1.ext</file> " +
+                      " </exclude>" +
+                      "</ccm>";
+
+      XmlDocument doc = new XmlDocument();
+      doc.LoadXml(config);
+
+      ConfigurationFile file = new ConfigurationFile(doc);
+
+      Assert.AreEqual(ParserSwitchBehavior.TraditionalInclude, file.SwitchStatementBehavior);
+    }
+
+    [TestMethod]
+    public void TestSwitchBehaviorIgnoreCaseCanbeRead()
+    {
+      string config = "<ccm> " +
+                      " <switchStatementBehavior>IgnoreCases</switchStatementBehavior> " +
+                      " <exclude>" +
+                      "   <file>file1.ext</file> " +
+                      " </exclude>" +
+                      "</ccm>";
+
+      XmlDocument doc = new XmlDocument();
+      doc.LoadXml(config);
+
+      ConfigurationFile file = new ConfigurationFile(doc);
+
+      Assert.AreEqual(ParserSwitchBehavior.IgnoreCases, file.SwitchStatementBehavior);
+    }
+
+    [TestMethod]
+    [ExpectedException(typeof(InvalidOperationException))]
+    public void TestThrowsOnIllegalSwitchStatementBehavior()
+    {
+      string config = "<ccm> " +
+                      " <switchStatementBehavior>Merge</switchStatementBehavior> " +
+                      " <exclude>" +
+                      "   <file>file1.ext</file> " +
+                      " </exclude>" +
+                      "</ccm>";
+
+      XmlDocument doc = new XmlDocument();
+      doc.LoadXml(config);
+
+      ConfigurationFile file = new ConfigurationFile(doc);
+    }
+
+
   }
 }

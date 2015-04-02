@@ -24,7 +24,7 @@ namespace CCM
         "Supported languages are c/c++ (.c, .cpp, .h, .hpp), c# (.cs) and javascript (.js)\r\n"+
         "\r\n\r\nUsage:\r\n" +
         "  ccm [config-file] \r\n" +
-        "  ccm [path-to-analyze] [/xml] [/v]\r\n\r\n" +
+        "  ccm [path-to-analyze] [/xml] [/v] [/ignorecases]\r\n\r\n" +
         "    config-file        Path to configuration file (see below for structure of file).\r\n"+
         "                       Using a configuration file provides more control, such as analyzing multiple folders,\r\n"+
         "                       excluding folders and files and controlling number of metrics outputted.\r\n"+                     
@@ -32,6 +32,7 @@ namespace CCM
         "                       This will be analyzed recursively and 30 worst metrics outputted.\r\n" +
         "    xml                Add /xml if you want output in xml.\r\n" +
         "    v                  Add /v if you want ccm-version to be printed to console.\r\n" +
+        "    ignorecases        Don't count each case in a switch as additional branch.\r\n" +
         " \r\n" +
         "  When ccm operates on a configuration file, all other parameters are ignored. \r\n" +
         "  Structure of configuration file should be:\r\n\r\n" +
@@ -81,7 +82,10 @@ namespace CCM
           sb.Append(string.Format("<outputter>{0}</outputter>", CCMOutputter.XmlOutputType));
         else if (arg.Equals("/tabbedoutput", StringComparison.OrdinalIgnoreCase))
           sb.Append(string.Format("<outputter>{0}</outputter>", CCMOutputter.TabbedOutputType));
-        
+
+        if (arg.Equals("/ignorecases"))
+          sb.Append("<switchStatementBehavior>IgnoreCases</switchStatementBehavior>");
+
         if (arg.Equals("/version") || arg.Equals("/v"))
           Console.WriteLine("ccm version is: {0}.", Assembly.GetExecutingAssembly().GetName().Version.ToString());
       }

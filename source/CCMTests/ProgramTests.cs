@@ -54,5 +54,15 @@ namespace CCMTests
         Assert.AreEqual("c:\\code", config.AnalyzeFolders[0]);
       }
 
+      [TestMethod]
+      public void TestCreateConfigurationFromArgsWithIgnoreCases()
+      {
+        XmlDocument doc = Program.CreateConfigurationFromArgs(new string[] { "c:\\code", "/ignorecases" });
+
+        ConfigurationFile config = new ConfigurationFile(doc);
+
+        Assert.AreEqual(ParserSwitchBehavior.IgnoreCases, config.SwitchStatementBehavior);
+      }
+
     }
 }
