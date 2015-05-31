@@ -14,7 +14,7 @@ namespace CCMEngine
   {
     StringBuilder sb = new StringBuilder();
     LookAheadLangParser parser = null;
-    static string[] tokens = new string[] { "#", " ", "\r", "\n", "(", ")", "/", "*" };
+    static string[] tokens = new string[] { "#", " ", "\r", "\n", "(", ")", "/", "*", "\t" };
 
     public static StreamReader GetTextStream(string text)
     {

@@ -126,6 +126,9 @@
     <Content Include="IntegrationTests\cstylefuncs.c">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="IntegrationTests\FileWithTabAfterEndIf.c">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="IntegrationTests\valian.c">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

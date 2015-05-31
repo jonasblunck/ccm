@@ -18,8 +18,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ccmUI", "source\ccmUI\ccmUI.csproj", "{EC6E3E0E-FE05-4D9F-898F-F656D5D66A95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ccmPack", "ccmPack\ccmPack.csproj", "{79C2D75E-3E2A-4E4E-B8DD-8A10664716CB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,12 +54,6 @@ Global
 		{EC6E3E0E-FE05-4D9F-898F-F656D5D66A95}.Release_WithCoverageFeature|Any CPU.ActiveCfg = Release|Any CPU
 		{EC6E3E0E-FE05-4D9F-898F-F656D5D66A95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC6E3E0E-FE05-4D9F-898F-F656D5D66A95}.Release|Any CPU.Build.0 = Release|Any CPU
-		{79C2D75E-3E2A-4E4E-B8DD-8A10664716CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{79C2D75E-3E2A-4E4E-B8DD-8A10664716CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{79C2D75E-3E2A-4E4E-B8DD-8A10664716CB}.Release_WithCoverageFeature|Any CPU.ActiveCfg = Release|Any CPU
-		{79C2D75E-3E2A-4E4E-B8DD-8A10664716CB}.Release_WithCoverageFeature|Any CPU.Build.0 = Release|Any CPU
-		{79C2D75E-3E2A-4E4E-B8DD-8A10664716CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{79C2D75E-3E2A-4E4E-B8DD-8A10664716CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

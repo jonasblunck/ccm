@@ -242,5 +242,22 @@ namespace CCMTests
         Assert.IsNotNull(IntegrationTests.GetByName(listener.Metrics, "edit_cfg_record"));
       }
     }
+
+    [TestMethod]
+    [DeploymentItem("IntegrationTests\\FileWithTabAfterEndIf.c")]
+    public void TestFileWithTabAfterEndif()
+    {
+      string filename = "FileWithTabAfterEndIf.c"; // this is deployed through local.testsettings
+      SortedListener listener = new SortedListener(10, new List<string>());
+      using (StreamReader stream = new StreamReader(filename))
+      {
+        FileAnalyzer analyzer = new FileAnalyzer(stream, listener, null, true, filename);
+        analyzer.Analyze();
+
+        Assert.AreEqual(1, listener.Metrics.Count);
+
+        Assert.IsNotNull(IntegrationTests.GetByName(listener.Metrics, "Foo"));
+      }
+    }
   }
 }

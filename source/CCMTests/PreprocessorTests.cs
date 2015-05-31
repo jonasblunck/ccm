@@ -559,5 +559,25 @@ namespace CCMTests
       Assert.AreEqual(text.Length, result.Length);
 
     }
+
+    [TestMethod]
+    public void TestTabAfterEndIfDoesntThrowParserOff()
+    {
+      string text = "#ifdef false \r\n" + 
+                    "#ifdef false \r\n" +
+                    " // something \r\n" +
+                    "#else \r\n" +
+                    " // something \r\n" +
+                    "#endif\r\n" +
+                    "#endif\t //comment\r\n" +
+                    "text";
+                    
+      Preprocessor preprocessor = new Preprocessor(TestUtil.GetTextStream(text));
+      string result = preprocessor.Process().ReadToEnd();
+
+      Assert.AreEqual("text", result.Trim());
+      Assert.AreEqual(text.Length, result.Length);
+
+    }
   }
 }
