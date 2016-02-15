@@ -10,6 +10,7 @@ namespace CCM
     public static string XmlOutputType = "XML";
     public static string TextOutputType = "Text";
     public static string TabbedOutputType = "Tabbed";
+    public static string CSVOutputType = "CSV";
 
     public abstract void Output(List<ccMetric> metrics, List<ErrorInfo> errors, bool verbose);
   }

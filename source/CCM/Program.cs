@@ -66,6 +66,9 @@ namespace CCM
       if (outputType.Equals(CCMOutputter.XmlOutputType, StringComparison.OrdinalIgnoreCase))
         return new XmlOutputter();
 
+      if (outputType.Equals(CCMOutputter.CSVOutputType, StringComparison.OrdinalIgnoreCase))
+        return new CSVOutputter();
+
       return new ConsoleOutputter();
     }
 
