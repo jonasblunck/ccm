@@ -1,11 +1,23 @@
 install:
   - dir
 
-matrix:  
-    - platform: Any CPU
-      configuration: Debug
-    - platform: Any CPU
-      configuration: Release
+environment:
+    matrix:  
+    # first group
+    - target: Debug
+
+    # second group
+    - target: Release
+
+platform:
+    - Any CPU
+
+configuration:
+    - Debug
+    - Release
+
+matrix:
+    fast_finish: true
   
 build:
   project: C:/projects/ccm/CCM.sln
