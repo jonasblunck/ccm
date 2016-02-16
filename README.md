@@ -52,7 +52,7 @@ Below is an example of a configuration file.
 * ```<exclude>``` element can be used to exclude files and/or folders from analysis.
 * ```<analyze>``` element specified which folders to analyze. All paths in the ```<folder>``` element is relative to the location of the configuration file.
 * ```<recursive>``` element tells CCM to traverse folders or not.
-* ```<outputter>``` element tells CCM how to output the data. Valid values are 'XML', 'Tabbed', 'Text'.
+* ```<outputter>``` element tells CCM how to output the data. Valid values are 'XML', 'Tabbed', 'Text', 'CSV'
 * ```<suppressMethodSignatures>``` set to 'yes' and CCM will only print the name of the method and not the full signature.
 * ```<switchStatementBehavior>``` set to 'IgnoreCases' and CCM will not count each case statement in switch blocks as a branching point.
 * ```<numMetrics>``` tells CCM how many metrics that should be reported. Only the top x functions will be reported.

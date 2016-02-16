@@ -45,7 +45,7 @@ namespace CCM
         "      <folder>..\\..\\code</folder>\r\n" +
         "    </analyze>\r\n" +
         "    <recursive>yes</recursive>\r\n" +
-        "    <outputter>XML|Tabbed|Text</outputter>\r\n" +
+        "    <outputter>XML|Tabbed|Text|CSV</outputter>\r\n" +
         "    <numMetrics>30</numMetrics>\r\n" +
         "    <switchStatementBehavior>TraditionalInclude|IgnoreCases</switchStatementBehavior>\r\n" +
         "    <fileExtensions>\r\n" +
