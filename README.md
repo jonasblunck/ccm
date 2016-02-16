@@ -1,5 +1,9 @@
 CCM
 ===
+<a href="https://ci.appveyor.com/project/mydeveloperday/ccm">
+  <img alt="AppVeyor Scan Build Status"
+       src="https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true"/>
+</a>
 
 ## Overview
 
