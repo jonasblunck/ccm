@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="CCMOutputter.cs" />
     <Compile Include="ConsoleOutputter.cs" />
+    <Compile Include="CSVOutputter.cs" />
     <Compile Include="TabbedOutputter.cs" />
     <Compile Include="Driver.cs" />
     <Compile Include="ErrorInfo.cs" />
