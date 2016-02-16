@@ -1,0 +1,12 @@
+install:
+  - dir
+  
+platform:
+  - win32
+  
+configuration:
+  - Debug
+  
+build:
+  project: C:/projects/cpp-net-framework/build/CCM.sln
+  verbosity: minimal
