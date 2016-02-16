@@ -1,8 +1,11 @@
 install:
   - dir
-  
-configuration:
-  - Debug
+
+matrix:  
+    - platform: Any CPU
+      configuration: Debug
+    - platform: Any CPU
+      configuration: Release
   
 build:
   project: C:/projects/ccm/CCM.sln
