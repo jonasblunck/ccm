@@ -156,7 +156,7 @@ namespace CCMEngine
       catch (EndOfStreamException)
       {
       }
-      
+
       return false;
     }
 
@@ -200,7 +200,7 @@ namespace CCMEngine
           while (!this.parser.PeekNextKeyword(lookAHeadOffset).Equals(">"))
             lookAHeadOffset++;
         }
-          
+
         if (this.parser.PeekNextKeyword(lookAHeadOffset + 1).Equals("("))
         {
           int offset = lookAHeadOffset + 2; 
@@ -210,7 +210,7 @@ namespace CCMEngine
             while (this.parser.PeekNextKeyword(offset).Equals("("))
               while (!this.parser.PeekNextKeyword(offset).Equals(")")) // local ( ) pair inside arguments
                 ++offset;
-  
+
             ++offset;
           }
 
@@ -222,7 +222,7 @@ namespace CCMEngine
 
           if (this.parser.PeekNextKeyword(offset + 1).StartsWith("throw") ||
               this.parser.PeekNextKeyword(offset + 1).Equals(":"))
-              
+
           {
             while (!this.parser.PeekNextKeyword(offset + 1).Equals("{"))
               offset++;
@@ -267,7 +267,9 @@ namespace CCMEngine
         while(!this.parser.PeekNextKeyword().Equals(endToken))
         {
           if (this.parser.PeekNextKeyword().Equals(startToken))
-            ConsumeBlock(startToken, endToken);
+          {
+             ConsumeBlock(startToken, endToken);
+          }
 
           this.parser.NextKeyword();
         }

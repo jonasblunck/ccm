@@ -70,8 +70,9 @@ namespace CCMEngine
     {
       if (this.consumeWhiteSpace)
       {
-        while (NextIsSpace())
+        while (NextIsSpace()){
           this.parser.Read();
+        }
       }
 
       do
@@ -117,11 +118,23 @@ namespace CCMEngine
 
     public bool NextIsQuotedText()
     {
-      if (this.parser.Peek(0).Equals('"') || this.parser.Peek(0).Equals('\''))
-        return true;
+      char nextChar = this.parser.Peek(0);
 
-      if (this.parser.Peek(0).Equals('@') && (this.parser.Peek(1).Equals('"') || this.parser.Peek(1).Equals('\'')))
+      if (nextChar.Equals('"') || nextChar.Equals('\''))
+      {
         return true;
+      }
+
+      if (!nextChar.Equals('@')){
+        return false;
+      }
+
+      char nextNextChar = this.parser.Peek(1);
+
+      if (nextNextChar.Equals('"') || nextNextChar.Equals('\''))
+      {
+        return true;
+      }
 
       return false;
     }
@@ -130,13 +143,16 @@ namespace CCMEngine
     {
       try
       {
-        while (NextIsSpace() && this.consumeWhiteSpace)
+        while (NextIsSpace() && this.consumeWhiteSpace){
           this.parser.Read();
+        }
 
-        if (NextIsQuotedText())
+        if (NextIsQuotedText()){
           FillQuotedText();
-        else
+        }
+        else {
           FillNextToken();
+        }
       }
       catch (EndOfStreamException)
       {
@@ -176,11 +192,25 @@ namespace CCMEngine
 
       try
       {
-        while ('\r' != this.parser.Peek(0) && '\n' != this.parser.Peek(0))
-          sb.Append(this.parser.Read());
+        while(true)
+        {
+            char c = this.parser.Peek(0);
+            if ('\r' == c || '\n' == c)
+            {
+                 break;
+            }
+            sb.Append(this.parser.Read());
+        }
 
-        while ('\r' == this.parser.Peek(0) || '\n' == this.parser.Peek(0))
-          sb.Append(this.parser.Read());
+        while(true)
+        {
+            char c = this.parser.Peek(0);
+            if ('\r' != c && '\n' != c)
+            {
+                 break;
+            }
+            sb.Append(this.parser.Read());
+        }
       }
       catch (EndOfStreamException)
       {
