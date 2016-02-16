@@ -4,7 +4,6 @@ CCM
   <img alt="AppVeyor Build Status"
        src="https://ci.appveyor.com/api/projects/status/nalor86ex64n4qq2?svg=true"/>
 </a>
-
 <a href="https://ci.appveyor.com/project/mydeveloperday/ccm">
   <img alt="Travis Build Status"
        src="https://travis-ci.org/mydeveloperday/ccm.svg?branch=master"/>
