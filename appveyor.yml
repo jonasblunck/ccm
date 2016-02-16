@@ -1,9 +1,6 @@
 install:
   - dir
   
-platform:
-  - win32
-  
 configuration:
   - Debug
   
