@@ -10,6 +10,87 @@ namespace CCMEngine
     void OnMetric(ccMetric metric, object context);
   }
 
+    /// <summary>
+    /// Class to encapsulate access to the char buffer
+    /// </summary>
+    public class CharBuffer
+    {
+        /// <summary>
+        /// keep the character buffer private to control access
+        /// </summary>
+        char[] buffer = null;
+
+        /// <summary>
+        /// a list of offsets to newlines
+        /// </summary>
+        List<int> newLineOffsetList;
+
+        public CharBuffer(long size)
+        {
+            buffer = new char[size];
+            newLineOffsetList = new List<int>();
+        }
+
+        public void ReadEntireStream(StreamReader filestream)
+        {
+            filestream.Read(buffer, 0, buffer.Length);
+        }
+
+        public MemoryStream GetBytesMemoryStream()
+        {
+            return new MemoryStream(Encoding.Default.GetBytes(buffer));
+        }
+
+        public int GetLineNumber(int offset)
+        {
+          int lineNumber = 1;
+          int startingLineNumber = 0;
+
+          // simplify the loop counter
+          int maxLine = Math.Min(offset, buffer.Length);
+
+          if (newLineOffsetList.Count > 0)
+          {
+            if (maxLine < newLineOffsetList[newLineOffsetList.Count - 1])
+            {
+                // we have already called GetLineNumber on this file with an offset
+                // less than where we are currently looking, simply search through all the newlines
+                // to find the last line
+                for (int newLineNumber=0;newLineNumber<newLineOffsetList.Count; newLineNumber++)
+                {
+                    if (offset < newLineOffsetList[newLineNumber])
+                    {
+                        return newLineNumber;
+                    }
+                }
+            }
+            else {
+                // File has been partially read before fast forward to last seen '\n'
+                // and use that to seed the loop at somepoint into the buffer
+                startingLineNumber = newLineOffsetList[newLineOffsetList.Count - 1]+1;
+                lineNumber = newLineOffsetList.Count+1;
+            }
+          }
+
+          
+
+          // I need to search for the newlines
+          for (int i = startingLineNumber; i < maxLine ; ++i)
+          {
+            if (buffer[i].Equals('\n'))
+            {
+                ++lineNumber;
+
+                // when I see a newline remember the offset to the CR
+                // lineNumber will then be the index
+                newLineOffsetList.Add(i);
+            }
+          }
+
+          return lineNumber;
+        }
+  }
+
   public class FileAnalyzer
   {
     ICCMNotify callback = null;
@@ -17,16 +98,17 @@ namespace CCMEngine
     object context = null;
     bool suppressMethodSignatures = false;
     string filename;
-    char[] buffer = null;
+    CharBuffer buffer;
+    
     ParserSwitchBehavior switchBehavior;
 
     public FileAnalyzer(StreamReader filestream, ICCMNotify callback, object context, bool suppressMethodSignatures, string filename,
       ParserSwitchBehavior switchBehavior = ParserSwitchBehavior.TraditionalInclude)
     {
-      this.buffer = new char[filestream.BaseStream.Length];
-      filestream.Read(this.buffer, 0, this.buffer.Length);
+      this.buffer = new CharBuffer(filestream.BaseStream.Length);
+      this.buffer.ReadEntireStream(filestream);
 
-      var processStream = new StreamReader(new MemoryStream(Encoding.Default.GetBytes(this.buffer)));
+      var processStream = new StreamReader(buffer.GetBytesMemoryStream());
 
       // run through preprocessor before setting up parser...
       Preprocessor preprocessor = new Preprocessor(processStream);
@@ -47,15 +129,7 @@ namespace CCMEngine
 
     private int GetLineNumber(int offset)
     {
-      int lineNumber = 1;
-
-      for (int i = 0; i < offset && i < this.buffer.Length ; ++i)
-      {
-        if (this.buffer[i].Equals('\n'))
-          ++lineNumber;
-      }
-
-      return lineNumber;
+        return buffer.GetLineNumber(offset);
     }
 
     private void OnLocalFunction(IFunctionStream functionStream)

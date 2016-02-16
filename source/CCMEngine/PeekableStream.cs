@@ -8,7 +8,7 @@ namespace CCMEngine
   {
     StreamReader stream = null;
     List<char> localStreamBuffer = new List<char>();
-	  private int streamOffset = 0;
+	private int streamOffset = 0;
 
     public PeekableStream(StreamReader reader)
     {
@@ -17,36 +17,41 @@ namespace CCMEngine
 
     public char Peek(int offset)
     {
-      if (this.localStreamBuffer.Count < (offset + 1))
-        while ((this.localStreamBuffer.Count < (offset + 1)) && !this.stream.EndOfStream)
-          this.localStreamBuffer.Add((char)this.stream.Read());
+        int end = offset + 1;
 
-      if ((1 + offset) > this.localStreamBuffer.Count)
-        throw new EndOfStreamException();
+        if (this.localStreamBuffer.Count < end) {
+            while ((this.localStreamBuffer.Count < end ) && 
+                   !this.stream.EndOfStream) 
+            {
+                this.localStreamBuffer.Add((char)this.stream.Read());
+            }
+        }
 
-      return this.localStreamBuffer[offset];
+        if (end > this.localStreamBuffer.Count)
+        {
+            throw new EndOfStreamException();
+        }
+
+        return this.localStreamBuffer[offset];
     }
 
     public char Read()
     {
-	    char ch;
+	  char ch;
 			
-      if (this.localStreamBuffer.Count > 0)
-      {
+      if (this.localStreamBuffer.Count > 0) {
         ch = this.localStreamBuffer[0];
         this.localStreamBuffer.RemoveAt(0);
       }
-      else if (this.stream.EndOfStream)
-      {
+      else if (this.stream.EndOfStream) {
         throw new EndOfStreamException();
       }
-      else
-      {
+      else {
         ch =  (char)this.stream.Read();
       }
 			
-	    this.streamOffset++;
-	    return ch;
+	  this.streamOffset++;
+	  return ch;
     }
 	
   	public int StreamOffset
