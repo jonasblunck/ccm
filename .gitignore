@@ -1,1 +1,6 @@
 bin/
+obj/
+*.user
+*.vspx
+*.psess
+TestResults/
