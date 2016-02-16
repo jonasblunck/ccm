@@ -1,14 +1,6 @@
 install:
   - dir
 
-environment:
-    matrix:  
-    # first group
-    - target: Debug
-
-    # second group
-    - target: Release
-
 platform:
     - Any CPU
 
