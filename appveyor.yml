@@ -8,5 +8,5 @@ configuration:
   - Debug
   
 build:
-  project: C:/projects/cpp-net-framework/build/CCM.sln
+  project: C:/projects/ccm/CCM.sln
   verbosity: minimal
