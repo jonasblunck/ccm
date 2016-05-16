@@ -3,3 +3,8 @@
 ################################################################################
 
 /TestResults
+/source/CCM/obj
+/source/CCMEngine/obj
+/source/CCMTests/obj
+/source/ccmUI/obj
+/source/vsCCM/obj
