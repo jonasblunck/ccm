@@ -24,7 +24,7 @@ namespace CCM
               "Supported languages are c/c++ (.c, .cpp, .h, .hpp), c# (.cs) and javascript (.js)\r\n" +
               "\r\n\r\nUsage:\r\n" +
               "  ccm [config-file] \r\n" +
-              "  ccm [path-to-analyze] [/xml] [/v] [/ignorecases] [/threshold=5] \r\n\r\n" +
+              "  ccm [path-to-analyze] [/xml] [/v] [/ignorecases] [/threshold=5] [/nummetrics=10] \r\n\r\n" +
               "    config-file        Path to configuration file (see below for structure of file).\r\n" +
               "                       Using a configuration file provides more control, such as analyzing multiple folders,\r\n" +
               "                       excluding folders and files and controlling number of metrics outputted.\r\n" +
@@ -34,6 +34,7 @@ namespace CCM
               "    v                  Add /v if you want ccm-version to be printed to console.\r\n" +
               "    ignorecases        Don't count each case in a switch as additional branch.\r\n" +
               "    threshold          Don't report metrics less than the threshold.\r\n" +
+              "    nummetrics         Report only top <X> metrics (see numMetrics element in config file).\r\n" +
               " \r\n" +
               "  When ccm operates on a configuration file, all other parameters are ignored. \r\n" +
               "  Structure of configuration file should be:\r\n\r\n" +
@@ -76,12 +77,15 @@ namespace CCM
 
         public static XmlDocument CreateConfigurationFromArgs(string[] args)
         {
+            int numMetrics = 30;
+
             StringBuilder sb = new StringBuilder();
             sb.Append("<ccm><analyze><folder>");
             sb.Append(args[0]);
-            sb.Append("</folder></analyze><recursive>yes</recursive><numMetrics>30</numMetrics>");
 
-            foreach (string arg in args)
+            sb.Append("</folder></analyze><recursive>yes</recursive>");
+
+            foreach (string arg in args.Where(a => a != args.First()))
             {
                 if (arg.Equals("/xml"))
                     sb.Append(string.Format("<outputter>{0}</outputter>", CCMOutputter.XmlOutputType));
@@ -92,14 +96,17 @@ namespace CCM
                     int threshold = int.Parse(arg.Split('=').Last());
                     sb.Append(string.Format("<threshold>{0}</threshold>", threshold));
                 }
-
-                if (arg.Equals("/ignorecases"))
+                else if (arg.Contains("/nummetrics="))
+                    numMetrics = int.Parse(arg.Split('=').Last());
+                else if (arg.Equals("/ignorecases"))
                     sb.Append("<switchStatementBehavior>IgnoreCases</switchStatementBehavior>");
-
-                if (arg.Equals("/version") || arg.Equals("/v"))
+                else if (arg.Equals("/version") || arg.Equals("/v"))
                     Console.WriteLine("ccm version is: {0}.", Assembly.GetExecutingAssembly().GetName().Version.ToString());
+                else
+                    throw new ArgumentException(string.Format("Unknown parameter: {0}", arg));
             }
 
+            sb.Append(string.Format("<numMetrics>{0}</numMetrics>", numMetrics));
             sb.Append("</ccm>");
 
             XmlDocument doc = new XmlDocument();

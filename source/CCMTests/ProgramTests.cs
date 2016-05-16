@@ -44,6 +44,23 @@ namespace CCMTests
         }
 
         [TestMethod]
+        public void TestCreateNumMetricsFromArgs()
+        {
+            XmlDocument doc = Program.CreateConfigurationFromArgs(new string[] { "c:\\code", "/nummetrics=15" });
+
+            ConfigurationFile config = new ConfigurationFile(doc);
+
+            Assert.AreEqual(15, config.NumMetrics);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestThrowsOnUnknownArgument()
+        {
+            XmlDocument doc = Program.CreateConfigurationFromArgs(new string[] { "c:\\code", "/somenewstrangeone" });
+        }
+
+        [TestMethod]
         public void TestCreateConfigurationFromArgsWithTabbedOutput()
         {
             XmlDocument doc = Program.CreateConfigurationFromArgs(new string[] { "c:\\code", "/tabbedOutput" });

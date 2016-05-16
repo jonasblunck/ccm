@@ -14,7 +14,7 @@ There are two parts included with the installer:
 To CCM.exe, simply use one of the two modes for invocation:
 
 * CCM.exe ```<path-to-config-file>```
-* CCM.exe ```<folder-path-to-analyze>``` ```[/xml]``` ```[/ignorecases]``` ```[/threshold=5]``` ```[v]``` 
+* CCM.exe ```<folder-path-to-analyze>``` ```[/xml]``` ```[/ignorecases]``` ```[/threshold=5]``` ```[/nummetrics=10]``` ```[v]``` 
 
 ### Arguments
 ```
@@ -24,6 +24,7 @@ To CCM.exe, simply use one of the two modes for invocation:
    /xml                     Output results as XML (this parameter only valid if a config file is not passed in).
    /ignorecases             Don't count each case in switch block as a branching point (only valid if config file is not passed in).
    /threshold=5             Ignore units with metrics lower than assigned value.
+   /nummetrics=10           Only report top 10 metrics (see numMetrics element in configuration file)
    /v                       Print the version number of ccm.exe.
 ```
 
