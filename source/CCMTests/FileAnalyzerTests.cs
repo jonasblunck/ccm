@@ -16,7 +16,7 @@ namespace CCMTests
     [TestInitialize]
     public void Setup()
     {
-      this.listener = new SortedListener(100, new List<string>()); 
+      this.listener = new SortedListener(100, new List<string>(), 0); 
     }
 
     private void Analyze(string code, string filename)

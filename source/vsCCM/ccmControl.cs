@@ -250,7 +250,7 @@ namespace vsCCM
       {
         lock (this.syncLock)
         {
-          this.listener = new SortedListener(GetNumMetrics(), new List<string>());
+          this.listener = new SortedListener(GetNumMetrics(), new List<string>(), 0);
 
           //
           // setup semaphore for multi processing

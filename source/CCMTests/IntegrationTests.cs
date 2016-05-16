@@ -183,7 +183,7 @@ namespace CCMTests
     public void TestJavascriptFileContainsAllFunctions()
     {
       string filename = "examples.js"; // this is deployed through local.testsettings
-      SortedListener listener = new SortedListener(10, new List<string>());
+      SortedListener listener = new SortedListener(10, new List<string>(), 0);
       using (StreamReader stream = new StreamReader(filename))
       {
         FileAnalyzer analyzer = new FileAnalyzer(stream, listener, null, false, filename);
@@ -210,7 +210,7 @@ namespace CCMTests
     public void TestTypescriptFileIsCorrectlyParsed()
     {
       string filename = "TypeScript.ts"; // this is deployed through local.testsettings
-      SortedListener listener = new SortedListener(10, new List<string>());
+      SortedListener listener = new SortedListener(10, new List<string>(), 0);
       using (StreamReader stream = new StreamReader(filename))
       {
         FileAnalyzer analyzer = new FileAnalyzer(stream, listener, null, false, filename);
@@ -229,7 +229,7 @@ namespace CCMTests
     public void TestCStyleFuncDecl()
     {
       string filename = "cstylefuncs.c"; // this is deployed through local.testsettings
-      SortedListener listener = new SortedListener(10, new List<string>());
+      SortedListener listener = new SortedListener(10, new List<string>(), 0);
       using (StreamReader stream = new StreamReader(filename))
       {
         FileAnalyzer analyzer = new FileAnalyzer(stream, listener, null, true, filename);
@@ -248,7 +248,7 @@ namespace CCMTests
     public void TestFileWithTabAfterEndif()
     {
       string filename = "FileWithTabAfterEndIf.c"; // this is deployed through local.testsettings
-      SortedListener listener = new SortedListener(10, new List<string>());
+      SortedListener listener = new SortedListener(10, new List<string>(), 0);
       using (StreamReader stream = new StreamReader(filename))
       {
         FileAnalyzer analyzer = new FileAnalyzer(stream, listener, null, true, filename);
