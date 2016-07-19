@@ -148,10 +148,9 @@ namespace CCM
         {
           if (IsValidFile(fileName))
           {
-            StreamReader fileStream = new StreamReader(fileName);
-            string name = fileName.Substring(basePath.Length);
-
-            StartAnalyze(fileStream, name);
+            StartAnalyze(
+                new StreamReader(fileName),
+                fileName);
           }
         }
       }

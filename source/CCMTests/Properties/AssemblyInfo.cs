@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("CCMTests")]
-[assembly: AssemblyCopyright("Copyright ©  2006-2013")]
+[assembly: AssemblyCopyright("Copyright ©  2006-2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.1.10")]
-[assembly: AssemblyFileVersion("1.1.10")]
+[assembly: AssemblyVersion("1.1.11")]
+[assembly: AssemblyFileVersion("1.1.11")]
