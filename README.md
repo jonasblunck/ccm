@@ -11,7 +11,7 @@ There are two parts included with the installer:
 * vsCCM; a Visual Studio 2008, 2010 and 2012 add-in that will add a new toolbar for integrating CCM with Visual Studio.
 
 ## Command line usage
-To CCM.exe, simply use one of the two modes for invocation:
+To use CCM.exe, simply use one of the two modes for invocation:
 
 * CCM.exe ```<path-to-config-file>```
 * CCM.exe ```<folder-path-to-analyze>``` ```[/xml]``` ```[/ignorecases]``` ```[/threshold=5]``` ```[/nummetrics=10]``` ```[v]``` 
