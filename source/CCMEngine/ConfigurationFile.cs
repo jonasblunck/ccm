@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
+using System.Linq;
 
 namespace CCMEngine
 {
@@ -152,11 +153,15 @@ namespace CCMEngine
 
         private void ParseSupportedFileExtensions(XmlDocument doc)
         {
-            ConfigurationFile.GetDefaultSupportedFileExtensions().ForEach(ext => this.SupportedExtensions.Add(ext));
-
             foreach (XmlElement e in doc.SelectNodes("/ccm/fileExtensions/fileExtension"))
             {
                 this.SupportedExtensions.Add(e.InnerText);
+            }
+
+            if (this.SupportedExtensions.Count() == 0)
+            {
+                // no extensions supported, so use the default ones
+                ConfigurationFile.GetDefaultSupportedFileExtensions().ForEach(ext => this.SupportedExtensions.Add(ext));
             }
         }
 

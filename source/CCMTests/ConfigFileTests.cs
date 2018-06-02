@@ -301,6 +301,24 @@ namespace CCMTests
         }
 
         [TestMethod]
+        public void TestWillNotIncludeAdditionalExtension_When_ExtensionElementPresents()
+        {
+            string config = @"<ccm>
+<fileExtensions>
+  <fileExtension>.ts</fileExtension>
+</fileExtensions>
+</ccm>";
+            
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(config);
+
+            ConfigurationFile file = new ConfigurationFile(doc);
+
+            Assert.AreEqual(1, file.SupportedExtensions.Count);
+            Assert.AreEqual(".ts", file.SupportedExtensions[0]);
+        }
+
+        [TestMethod]
         public void TestConfigFileThatAddsHppExtensionIsRecognizedAsSupported()
         {
             string config = "<ccm>" +
@@ -315,9 +333,9 @@ namespace CCMTests
 
             ConfigurationFile file = new ConfigurationFile(doc);
 
-            Assert.AreEqual(9, file.SupportedExtensions.Count);
-            Assert.AreEqual(".hpp", file.SupportedExtensions[7]);
-            Assert.AreEqual(".cxx", file.SupportedExtensions[8]);
+            Assert.AreEqual(2, file.SupportedExtensions.Count);
+            Assert.AreEqual(".hpp", file.SupportedExtensions[0]);
+            Assert.AreEqual(".cxx", file.SupportedExtensions[1]);
         }
 
         [TestMethod]
