@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1703.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ccmEngine", "ccmEngine.csproj", "{E51C626B-D9DB-4043-8D04-19EA5894D4BD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ccmEngine", "source\ccmEngine\ccmEngine.csproj", "{E51C626B-D9DB-4043-8D04-19EA5894D4BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ccmTests", "..\ccmTests\ccmTests.csproj", "{6DD930B8-A571-4797-ADEB-B3F02BA827B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ccmTests", "source\ccmTests\ccmTests.csproj", "{6DD930B8-A571-4797-ADEB-B3F02BA827B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCM", "..\CCM\CCM.csproj", "{C41359DD-C940-4C2F-BBBF-7B8EAEDB7017}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCM", "source\CCM\CCM.csproj", "{C41359DD-C940-4C2F-BBBF-7B8EAEDB7017}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
