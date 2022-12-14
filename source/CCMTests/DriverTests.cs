@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using CCM;
 using CCMEngine;
 using System.IO;
 using System.Xml;
