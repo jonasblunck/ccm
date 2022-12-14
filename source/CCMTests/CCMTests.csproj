@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Properties\" />
     <None Remove="IntegrationTests\IOPropertyValue.cpp" />
     <None Remove="IntegrationTests\valian.c" />
     <None Remove="IntegrationTests\ReportedCppErrors.cpp" />
@@ -23,9 +22,6 @@
     <None Remove="IntegrationTests\cstylefuncs.c" />
     <None Remove="IntegrationTests\CxxMocks.h" />
     <None Remove="IntegrationTests\examples.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CCMEngine\ccmEngine.csproj" />

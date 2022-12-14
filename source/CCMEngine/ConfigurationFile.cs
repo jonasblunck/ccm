@@ -249,14 +249,7 @@ namespace CCMEngine
             }
         }
 
-        public string OutputType
-        {
-            get
-            {
-                return this.outputType;
-            }
-
-        }
+        public string OutputType { get; private set; }
 
         public bool SuppressMethodSignatures
         {
