@@ -5,11 +5,6 @@ CCM
 
 CCM is a tool that analyzes c, c++, c#, javascript and TypeScript code and reports back with cyclomatic complexity metric.
 
-There are two parts included with the installer:
-
-* CCM.exe; a command line executable that will analyze code bases and report back with cyclomatic complexity metrics.
-* vsCCM; a Visual Studio 2008, 2010 and 2012 add-in that will add a new toolbar for integrating CCM with Visual Studio.
-
 ## Command line usage
 To use CCM.exe, simply use one of the two modes for invocation:
 
@@ -80,16 +75,11 @@ Program::Main(string [ ] args) : 2 - simple, without much risk (\Program.cs@line
 ```
 
 ## Platforms
-CCM is built in C#, targetting .NET 3.5 and as such runs on Windows. The commandline version, CCM.exe, can run on Linux distributions using the mono framework (http://www.monoproject.org).
+CCM is built in C#, targetting .NET Core 3.1 and as such runs on Windows, Mac, etc. 
 
 ## Building the code
 
-To build installer, follow these steps:
-
-1. Open ccm.sln in Visual Studio 2012
-2. Build release
+1. Open ccm.sln in Visual Studio 2022
+2. Build 
 3. Run unit tests (optional)
-4. Right click on install\setup.nsi and choose 'Compile NSIS Script'
-5. vsCCM.exe installer is now available in the install folder.
 
-NOTE that you need NSIS (http://nsis.sourceforge.net) to be able to build the installer.
