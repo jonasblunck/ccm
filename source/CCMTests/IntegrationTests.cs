@@ -3,15 +3,26 @@ using System.Collections.Generic;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CCMEngine;
-
 namespace CCMTests
 {
-  [TestClass]
-  public class IntegrationTests
+    [TestClass]
+    public class IntegrationTests
   {
     private static AnalyzerCollector Analyze(string filename)
     {
       return Analyze(filename, false);
+    }
+
+    private static string ResolveFilename(string filename)
+    {
+        if (File.Exists(filename))
+        {
+            return filename;
+        }
+        else
+        {
+            return Path.Join(System.IO.Directory.GetCurrentDirectory(), "../../../IntegrationTests", filename);
+        }
     }
 
     private static AnalyzerCollector Analyze(string filename, bool suppressMethodSignature)
@@ -19,7 +30,7 @@ namespace CCMTests
       //TODO: start using SortedListener instead of AnalyzerCollector (remove this one)
       AnalyzerCollector collector = new AnalyzerCollector();
 
-      StreamReader stream = new StreamReader(filename);
+      StreamReader stream = new StreamReader(ResolveFilename(filename)); 
 
       try
       {
@@ -63,7 +74,6 @@ namespace CCMTests
     }
     
     [TestMethod]
-    [DeploymentItem("IntegrationTests\\ReportedCppErrors.cpp")]
     public void ReportedCppErrors()
     {
       AnalyzerCollector collector = IntegrationTests.Analyze ("ReportedCppErrors.cpp");
@@ -81,7 +91,6 @@ namespace CCMTests
     }
 
     [TestMethod]
-    [DeploymentItem("IntegrationTests\\CxxMocks.h")]
     public void CxxMocksTests()
     {
       AnalyzerCollector collector = IntegrationTests.Analyze ("CxxMocks.h");
@@ -97,7 +106,6 @@ namespace CCMTests
     }
 
     [TestMethod]
-    [DeploymentItem("IntegrationTests\\IOPropertyValue.cpp")]
     public void IOTest()
     {
       AnalyzerCollector collector = IntegrationTests.Analyze("IOPropertyValue.cpp");
@@ -122,7 +130,6 @@ namespace CCMTests
     }
 
     [TestMethod]
-    [DeploymentItem("IntegrationTests\\log.cs")]
     public void TrendLogTest()
     {
       AnalyzerCollector collector = IntegrationTests.Analyze("log.cs");
@@ -136,7 +143,6 @@ namespace CCMTests
     }
 
     [TestMethod]
-    [DeploymentItem("IntegrationTests\\valian.c")]
     public void TestSuppressMethodSignature()
     {
       {
@@ -154,7 +160,6 @@ namespace CCMTests
     }
 
     [TestMethod]
-    [DeploymentItem("IntegrationTests\\valian.c")]
     public void ValianTest()
     {
       AnalyzerCollector collector = IntegrationTests.Analyze("valian.c");
@@ -179,10 +184,9 @@ namespace CCMTests
     }
 
     [TestMethod]
-    [DeploymentItem("IntegrationTests\\examples.js")]
     public void TestJavascriptFileContainsAllFunctions()
     {
-      string filename = "examples.js"; // this is deployed through local.testsettings
+      string filename = ResolveFilename("examples.js"); 
       SortedListener listener = new SortedListener(10, new List<string>(), 0);
       using (StreamReader stream = new StreamReader(filename))
       {
@@ -206,10 +210,9 @@ namespace CCMTests
     }
 
     [TestMethod]
-    [DeploymentItem("IntegrationTests\\TypeScript.ts")]
     public void TestTypescriptFileIsCorrectlyParsed()
     {
-      string filename = "TypeScript.ts"; // this is deployed through local.testsettings
+      string filename = ResolveFilename("TypeScript.ts"); 
       SortedListener listener = new SortedListener(10, new List<string>(), 0);
       using (StreamReader stream = new StreamReader(filename))
       {
@@ -225,10 +228,9 @@ namespace CCMTests
     }
 
     [TestMethod]
-    [DeploymentItem("IntegrationTests\\cstylefuncs.c")]
     public void TestCStyleFuncDecl()
     {
-      string filename = "cstylefuncs.c"; // this is deployed through local.testsettings
+      string filename = ResolveFilename("cstylefuncs.c"); 
       SortedListener listener = new SortedListener(10, new List<string>(), 0);
       using (StreamReader stream = new StreamReader(filename))
       {
@@ -244,10 +246,9 @@ namespace CCMTests
     }
 
     [TestMethod]
-    [DeploymentItem("IntegrationTests\\FileWithTabAfterEndIf.c")]
     public void TestFileWithTabAfterEndif()
     {
-      string filename = "FileWithTabAfterEndIf.c"; // this is deployed through local.testsettings
+      string filename = ResolveFilename("FileWithTabAfterEndIf.c"); 
       SortedListener listener = new SortedListener(10, new List<string>(), 0);
       using (StreamReader stream = new StreamReader(filename))
       {
