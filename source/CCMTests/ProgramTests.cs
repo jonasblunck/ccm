@@ -1,6 +1,7 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Xml;
+using CCM;
 using CCMEngine;
 
 namespace CCMTests

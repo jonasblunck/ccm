@@ -29,15 +29,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CCMEngine\ccmEngine.csproj" />
+    <ProjectReference Include="..\CCM\CCM.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="IntegrationTests\log.cs" />
-    <Compile Remove="DriverTests.cs" />
-    <Compile Remove="ProgramTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="DriverTests.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
-    <None Include="ProgramTests.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="IntegrationTests\log.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
