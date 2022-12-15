@@ -75,7 +75,7 @@ Program::Main(string [ ] args) : 2 - simple, without much risk (\Program.cs@line
 ```
 
 ## Platforms
-CCM is built in C#, targetting .NET Core 3.1 and as such runs on Windows, Mac, etc. 
+CCM is built in C#, targetting .NET Core 3.1 and as such runs on Windows, Mac and other platform supported by .NET Core.  
 
 ## Building the code
 
@@ -83,12 +83,17 @@ CCM is built in C#, targetting .NET Core 3.1 and as such runs on Windows, Mac, e
 2. Build 
 3. Run unit tests (optional)
 
-## Running the tool on Mac OS X (build first)
+## Running the tool on Mac OS X 
 
 ### Different options
 1. ./bin/Debug/netcoreapp3.1/ccm (this will display the help)
 1. ./bin/Debug/netcoreapp3.1/ccm ./bin/ccm.config (will run based on the ccm.config file)
 2. ./bin/Debug/netcoreapp3.1/ccm ./source (run the analyzer for the source folder)
 
+## Running the tool on Windows 
 
+### Different options
+1. .\bin\Debug\netcoreapp3.1\CCM.exe (this will display the help)
+2. .\bin\Debug\netcoreapp3.1\CCM.exe .\bin\ccm.config (will run based on the ccm.config file)
+3. .\bin\Debug\netcoreapp3.1\CCM.exe .\source (run the analyzer for the source folder)
 
