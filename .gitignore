@@ -1,3 +1,5 @@
 ﻿source/*/bin
 source/*/obj
+bin/Debug
+bin/Release
 .vs/
