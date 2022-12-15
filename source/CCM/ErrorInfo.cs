@@ -6,29 +6,13 @@ namespace CCM
 {
   public class ErrorInfo
   {
-    private string file;
-    private string message;
-
     public ErrorInfo(string file, string message)
     {
-      this.file = file;
-      this.message = message;
+      this.File = file;
+      this.Message = message;
     }
 
-    public string File
-    {
-      get
-      {
-        return this.file;
-      }
-    }
-
-    public string Message
-    {
-      get
-      {
-        return this.message;
-      }
-    }
+    public string File { get; private set; }
+    public string Message { get; private set; }
   }
 }
