@@ -1,10 +1,5 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-/TestResults
-/source/CCM/obj
-/source/CCMEngine/obj
-/source/CCMTests/obj
-/source/ccmUI/obj
-/source/vsCCM/obj
+﻿source/*/bin
+source/*/obj
+bin/Debug
+bin/Release
+.vs/

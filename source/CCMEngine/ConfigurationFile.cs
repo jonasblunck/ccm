@@ -13,10 +13,8 @@ namespace CCMEngine
         private List<string> excludeFolders = new List<string>();
         private List<string> analyzeFolders = new List<string>();
         private List<string> excludeFunctions = new List<string>();
-        private bool recursive = false;
         private int numMetrics = 30;
         private int threshold = 0;
-        private string outputType = "Text"; // default to Text output
         private bool suppressMethodSignatures = false;
         private ParserSwitchBehavior switchBehavior = ParserSwitchBehavior.TraditionalInclude;
 
@@ -55,7 +53,7 @@ namespace CCMEngine
                 string setting = recursive.InnerText;
 
                 if (setting.ToLower().Equals("yes") || setting.ToLower().Equals("true") || setting.Equals("1"))
-                    this.recursive = true;
+                    this.RecursiveAnalyze = true;
             }
         }
 
@@ -65,7 +63,7 @@ namespace CCMEngine
 
             if (null != output)
             {
-                this.outputType = output.InnerText;
+                this.OutputType = output.InnerText;
             }
         }
 
@@ -241,15 +239,8 @@ namespace CCMEngine
             }
         }
 
-        public bool RecursiveAnalyze
-        {
-            get
-            {
-                return this.recursive;
-            }
-        }
-
-        public string OutputType { get; private set; }
+        public bool RecursiveAnalyze { get; private set; } = false;
+        public string OutputType { get; private set; } = "Text";
 
         public bool SuppressMethodSignatures
         {
