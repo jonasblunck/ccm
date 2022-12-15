@@ -11,9 +11,20 @@ namespace CCMTests
     public class PSParserTests
     {
         [TestMethod]
-        public void TestNextIsFunction()
+        public void TestNextIsFunction_WithSignatureParameters()
         {
             string code = "function Get-NextFunction([string] $body) { Write-Host $body } ";
+
+            LookAheadLangParser textParser = LookAheadLangParser.CreatePowerShellParser(TestUtil.GetTextStream(code));
+            var parser = new PSParser(textParser);
+
+            Assert.IsTrue(parser.NextIsFunction());
+        }
+
+        [TestMethod]
+        public void TestNextIsFunction_WithBodyParameters()
+        {
+            string code = "function Write-Body { param([string] $body) Write-Host $body } ";
 
             LookAheadLangParser textParser = LookAheadLangParser.CreatePowerShellParser(TestUtil.GetTextStream(code));
             var parser = new PSParser(textParser);
@@ -39,5 +50,31 @@ namespace CCMTests
                 Assert.AreEqual("Get-NextFunction", success.Function);
             }
         }
+
     }
 }
+
+/*
+ * 
+ * Example functions we should support
+ * 
+
+function Echo-BodyParams
+{
+    param
+    (
+       [string] $InputText
+    )
+
+    Write-Host $InputText
+}
+
+function Echo-HeaderParams
+(
+    [string] $InputText
+)
+{
+   Write-Host $InputText
+}
+
+*/
