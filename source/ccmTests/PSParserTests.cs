@@ -10,15 +10,48 @@ namespace CCMTests
     [TestClass]
     public class PSParserTests
     {
+        private class PSTestContext
+        {
+            public LookAheadLangParser TextParser { get; private set; }
+            public PSParser Parser { get; private set; }
+
+            public static PSTestContext NewTestContext(string code)
+            {
+                var context = new PSTestContext();
+
+                context.TextParser = LookAheadLangParser.CreatePowerShellParser(TestUtil.GetTextStream(code));
+                context.Parser = new PSParser(context.TextParser);
+
+                return context;
+            }
+
+            public bool NextIsFunction()
+            {
+                return this.Parser.NextIsFunction();
+            }
+
+            public string NextFunction()
+            {
+                try
+                {
+                    this.Parser.AdvanceToNextFunction();
+
+                    return String.Empty;
+                }
+                catch(CCCParserSuccessException success)
+                {
+                    return success.Function;
+                }
+            }
+        }
+
         [TestMethod]
         public void TestNextIsFunction_WithSignatureParameters()
         {
             string code = "function Get-NextFunction([string] $body) { Write-Host $body } ";
 
-            LookAheadLangParser textParser = LookAheadLangParser.CreatePowerShellParser(TestUtil.GetTextStream(code));
-            var parser = new PSParser(textParser);
-
-            Assert.IsTrue(parser.NextIsFunction());
+            var context = PSTestContext.NewTestContext(code);
+            Assert.IsTrue(context.NextIsFunction());
         }
 
         [TestMethod]
@@ -26,31 +59,32 @@ namespace CCMTests
         {
             string code = "function Write-Body { param([string] $body) Write-Host $body } ";
 
-            LookAheadLangParser textParser = LookAheadLangParser.CreatePowerShellParser(TestUtil.GetTextStream(code));
-            var parser = new PSParser(textParser);
-
-            Assert.IsTrue(parser.NextIsFunction());
+            var context = PSTestContext.NewTestContext(code);
+            Assert.IsTrue(context.NextIsFunction());
         }
 
         [TestMethod]
         public void TestAdvanceToFunction()
         {
-            try
-            {
-                string code = "function Get-NextFunction([string] $body) { Write-Host $body } ";
+            string code = "function Get-NextFunction([string] $body) { Write-Host $body } ";
 
-                LookAheadLangParser textParser = LookAheadLangParser.CreatePowerShellParser(TestUtil.GetTextStream(code));
-                var parser = new PSParser(textParser);
-
-                parser.AdvanceToNextFunction();
-                Assert.Fail(); // we should not get here
-            }
-            catch (CCCParserSuccessException success)
-            {
-                Assert.AreEqual("Get-NextFunction", success.Function);
-            }
+            var context = PSTestContext.NewTestContext(code);
+            Assert.AreEqual("Get-NextFunction", context.NextFunction());
         }
 
+        [TestMethod]
+        public void TestAdvancesStreamToBodyBlock()
+        {
+            string code = "function Get-NextFunction([string] $body) { Write-Host $body } ";
+
+            var context = PSTestContext.NewTestContext(code);
+
+            Assert.AreEqual("Get-NextFunction", context.NextFunction());
+            Assert.AreEqual("{", context.TextParser.PeekNextKeyword());
+        }
+
+        // add more tests for multiple parameters
+        // add tests for branching statements as powershell uses -and and -or instead of && and ||
     }
 }
 

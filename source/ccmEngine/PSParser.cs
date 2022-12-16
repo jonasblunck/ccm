@@ -21,14 +21,35 @@ namespace CCMEngine
 
         public bool NextIsFunction()
         {
+            if (this.parser.PeekNextKeyword().Equals("function"))
+            {
+                return true;
+            }
+
             return false;
+        }
+
+        private void OnFunction()
+        {
+            this.parser.NextKeyword(); // function
+
+            var functionName = this.parser.NextKeyword();
+
+            throw new CCCParserSuccessException(functionName, this.parser.StreamOffset);
         }
 
         public void AdvanceToNextFunction()
         {
             while (true)
             {
-                this.parser.NextKeyword(); // consumed and move forward
+                if (NextIsFunction())
+                {
+                    OnFunction();
+                }
+                else
+                {
+                    this.parser.NextKeyword(); // consumed and move forward
+                }
             }
         }
     }
