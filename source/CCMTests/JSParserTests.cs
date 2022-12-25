@@ -15,7 +15,7 @@ namespace CCMTests
     {
       string code = "function Test(segmentA, segmentB) { }";
 
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
 
       Assert.IsTrue(parser.NextIsFunction());
@@ -27,7 +27,7 @@ namespace CCMTests
     {
       string code = "Backbone.Event = { };";
 
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
 
       Assert.IsFalse(parser.NextIsFunction());
@@ -38,7 +38,7 @@ namespace CCMTests
     {
       string code = "bind : function(ev, callback) { ... }";
 
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
 
       Assert.IsTrue(parser.NextIsFunction());
@@ -50,7 +50,7 @@ namespace CCMTests
     {
       string code = "if (x) { ... }";
 
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
 
       Assert.IsFalse(parser.NextIsFunction());
@@ -61,7 +61,7 @@ namespace CCMTests
     {
       string code = "function Test(segmentA, segmentB) { }";
 
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
 
       Assert.AreEqual("Test(segmentA,segmentB)", parser.GetFunctionName());
@@ -73,7 +73,7 @@ namespace CCMTests
     {
       string code = "bind : function(ev, callback) { ... }";
 
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
 
       Assert.AreEqual("bind(ev,callback)", parser.GetFunctionName());
@@ -84,7 +84,7 @@ namespace CCMTests
     {
       string code = "bind: function(ev, callback) { ... }";
 
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
 
       Assert.AreEqual("bind(ev,callback)", parser.GetFunctionName());
@@ -94,7 +94,7 @@ namespace CCMTests
     public void TestFunctionAssignment()
     {
       string code = "Backbone.View = function(options) {}";
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
 
       Assert.IsTrue(parser.NextIsFunction());
@@ -105,7 +105,7 @@ namespace CCMTests
     public void TestAnonymousFunctionIsRecognizedAsFunction()
     {
       string code = "function () { }";
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
 
       Assert.IsTrue(parser.NextIsFunction());
@@ -115,7 +115,7 @@ namespace CCMTests
     public void TestAnonymousFunctionIsNameAnonymous()
     {
       string code = "function (par1,par2) { }";
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
       Assert.IsTrue(parser.NextIsFunction());
 
@@ -127,7 +127,7 @@ namespace CCMTests
     {
       string code = "AFunction: function BFunction() {}";
 
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
 
       Assert.IsTrue(parser.NextIsFunction());
@@ -141,7 +141,7 @@ namespace CCMTests
     {
       string code = "class X { function BFunction() {}";
 
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
 
       parser.GetFunctionName();
@@ -152,7 +152,7 @@ namespace CCMTests
     {
       string code = "function Test(segmentA, segmentB) { }";
 
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
 
       try
@@ -172,7 +172,7 @@ namespace CCMTests
     {
       string code = "class MyClass { function foo() { } }";
 
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
 
       try
@@ -191,7 +191,7 @@ namespace CCMTests
     {
       string code = "greet() { }";
 
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
 
       Assert.IsTrue(parser.NextIsFunction());
@@ -204,7 +204,7 @@ namespace CCMTests
     {
       string code = "class MyClass { class MyClass2 { function foo() { } } }";
 
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
 
       try
@@ -225,7 +225,7 @@ namespace CCMTests
     {
       string code = "module MyNamespace { export class X { grey() {} } }";
 
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
 
       try
@@ -246,7 +246,7 @@ namespace CCMTests
     {
       string code = "interface Thing { intersect: (ray: Ray); normal: (pos: Vector); } NEXT";
 
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
 
       Assert.IsTrue(parser.NextIsInterface());
@@ -263,7 +263,7 @@ namespace CCMTests
     {
       string code = "class MyClass { class MyClass2 { function foo() { } } }";
 
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
       parser.ConsumeInterface();
     }
@@ -273,7 +273,7 @@ namespace CCMTests
     {
       string code = "interface Thing { member: ();  foo() {} } boo() {}";
 
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
 
       try
@@ -294,7 +294,7 @@ namespace CCMTests
     {
       string code = "greet(): int { }";
 
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
       Assert.IsTrue(parser.NextIsFunction());
       Assert.AreEqual("greet()", parser.GetFunctionName());
@@ -306,7 +306,7 @@ namespace CCMTests
     {
       string code = "function greet(): int { }";
 
-      LookAheadLangParser textParser = LookAheadLangParser.CreateJavascriptParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser textParser = LookAheadLangParserFactory.CreateJavascriptParser(TestUtil.GetTextStream(code));
       var parser = new JSParser(textParser);
       Assert.IsTrue(parser.NextIsFunction());
       Assert.AreEqual("greet()", parser.GetFunctionName());
