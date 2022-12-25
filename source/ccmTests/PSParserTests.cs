@@ -19,7 +19,7 @@ namespace CCMTests
             {
                 var context = new PSTestContext();
 
-                context.TextParser = LookAheadLangParser.CreatePowerShellParser(TestUtil.GetTextStream(code));
+                context.TextParser = LookAheadLangParserFactory.CreatePowerShellParser(TestUtil.GetTextStream(code));
                 context.Parser = new PSParser(context.TextParser);
 
                 return context;

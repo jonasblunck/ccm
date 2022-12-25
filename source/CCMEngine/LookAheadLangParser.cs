@@ -10,25 +10,7 @@ namespace CCMEngine
         LookAheadTokenParser parser = null;
         List<string> tokens = new List<string>();
 
-        public static LookAheadLangParser CreateJavascriptParser(StreamReader stream)
-        {
-            return new LookAheadLangParser(stream,
-              new string[] { "{", "}", ":", ";", "(", ")", "&&", "||", "\"", "'", "\t" });
-        }
-
-        public static LookAheadLangParser CreateCppParser(StreamReader stream)
-        {
-            return new LookAheadLangParser(stream,
-              new string[] { "{", "}", ";", "(", ")", "//", "/*", "::", "&&", "||", "\"", "'", "[", "]", "#", " ", "\r", "\n", ">", "<", "->", "*", "\t", "," });
-        }
-
-        public static LookAheadLangParser CreatePowerShellParser(StreamReader stream)
-        {
-            return new LookAheadLangParser(stream,
-              new string[] { "{", "}", "(", ")", "\t" });
-        }
-
-        private LookAheadLangParser(StreamReader stream, string[] tokens)
+        public LookAheadLangParser(StreamReader stream, string[] tokens)
         {
             this.parser = new LookAheadTokenParser(stream, tokens, true);
         }

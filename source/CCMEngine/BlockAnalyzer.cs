@@ -13,7 +13,7 @@ namespace CCMEngine
   public class BlockAnalyzer
   {
     private LookAheadLangParser parser;
-    private List<string> conditionalsWithExpressions;
+    private List<string> conditionalBranchStatements;
     private List<string> branchPointKeywords;
     private IFunctionStream functionStream;
     private OnLocalFunctionDelegate onLocalFunctionDelegate;
@@ -22,7 +22,7 @@ namespace CCMEngine
       ParserSwitchBehavior switchBehavior = ParserSwitchBehavior.TraditionalInclude)
     {
       this.parser = parser;
-      this.conditionalsWithExpressions = new List<string>(
+      this.conditionalBranchStatements = new List<string>(
         new string[] { "if", "while", "foreach", "for", "else if", "elseif" });
 
       this.branchPointKeywords = new List<string>(new string[] { "catch" });
@@ -104,7 +104,7 @@ namespace CCMEngine
 
             ++ccm;
           }
-          else if (this.conditionalsWithExpressions.Contains(this.parser.PeekNextKeyword()))
+          else if (this.conditionalBranchStatements.Contains(this.parser.PeekNextKeyword()))
             ccm += CalcCCOnConditionalBranch();
           else if (this.parser.PeekNextKeyword().Equals("#"))
             this.parser.MoveToNextLine();

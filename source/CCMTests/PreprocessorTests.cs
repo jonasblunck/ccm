@@ -27,8 +27,8 @@ namespace CCMTests
     {
       string text = "#ifdef";
 
-      Assert.AreEqual(false, Preprocessor.NextIsIfndef(LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(text))));
-      Assert.AreEqual(true, Preprocessor.NextIsIfdef(LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(text))));
+      Assert.AreEqual(false, Preprocessor.NextIsIfndef(LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(text))));
+      Assert.AreEqual(true, Preprocessor.NextIsIfdef(LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(text))));
     }
 
     [TestMethod]
@@ -36,8 +36,8 @@ namespace CCMTests
     {
       string text = "#ifndef";
 
-      Assert.AreEqual(false, Preprocessor.NextIsIfdef(LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(text))));
-      Assert.AreEqual(true, Preprocessor.NextIsIfndef(LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(text))));
+      Assert.AreEqual(false, Preprocessor.NextIsIfdef(LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(text))));
+      Assert.AreEqual(true, Preprocessor.NextIsIfndef(LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(text))));
     }
 
     [TestMethod]
@@ -45,7 +45,7 @@ namespace CCMTests
     {
       string text = "# ifdef";
 
-      Assert.AreEqual(true, Preprocessor.NextIsIfdef(LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(text))));
+      Assert.AreEqual(true, Preprocessor.NextIsIfdef(LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(text))));
     }
 
     [TestMethod]
@@ -53,7 +53,7 @@ namespace CCMTests
     {
       string text = "#if";
 
-      Assert.AreEqual(true, Preprocessor.NextIsIfdef(LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(text))));
+      Assert.AreEqual(true, Preprocessor.NextIsIfdef(LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(text))));
     }
 
     [TestMethod]
@@ -61,7 +61,7 @@ namespace CCMTests
     {
       string text = "#pragma";
 
-      Assert.AreEqual(false, Preprocessor.NextIsIfdef(LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(text))));
+      Assert.AreEqual(false, Preprocessor.NextIsIfdef(LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(text))));
     }
 
     [TestMethod]
@@ -88,7 +88,7 @@ namespace CCMTests
     {
       string text = "#endif";
 
-      Assert.AreEqual(true, Preprocessor.NextIsEndif(LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(text))));
+      Assert.AreEqual(true, Preprocessor.NextIsEndif(LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(text))));
     }
     [TestMethod]
     public void IfDef1()

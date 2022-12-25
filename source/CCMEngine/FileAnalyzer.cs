@@ -32,14 +32,7 @@ namespace CCMEngine
             Preprocessor preprocessor = new Preprocessor(processStream);
             StreamReader stream = preprocessor.Process();
 
-            // this construct should be fixed and support OCP
-            if (filename.ToLower().EndsWith(".js") || filename.ToLower().EndsWith(".ts"))
-                this.parser = LookAheadLangParser.CreateJavascriptParser(stream);
-            else if (filename.ToLower().EndsWith(".ps1") || filename.ToLower().EndsWith(".psm1"))
-                this.parser = LookAheadLangParser.CreatePowerShellParser(stream);
-            else
-                this.parser = LookAheadLangParser.CreateCppParser(stream);
-
+            this.parser = LookAheadLangParserFactory.CreateLangParser(stream, filename);
             this.callback = callback;
             this.context = context;
             this.suppressMethodSignatures = suppressMethodSignatures;

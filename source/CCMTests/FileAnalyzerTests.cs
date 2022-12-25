@@ -53,7 +53,7 @@ namespace CCMTests
     public void TestJavascriptFileGetsJSParserAsFunctionStream()
     {
       string filename = "test.js";
-      var langParser = LookAheadLangParser.CreateCppParser(new StreamReader(new MemoryStream()));
+      var langParser = LookAheadLangParserFactory.CreateCppParser(new StreamReader(new MemoryStream()));
 
       IFunctionStream functionStream = FileAnalyzer.CreateFunctionStream(langParser, filename, false);
 
@@ -65,7 +65,7 @@ namespace CCMTests
     public void TestCSharpFileGetsCCCParserAsFunctionStream()
     {
       string filename = "myCode.cs";
-      var langParser = LookAheadLangParser.CreateCppParser(new StreamReader(new MemoryStream()));
+      var langParser = LookAheadLangParserFactory.CreateCppParser(new StreamReader(new MemoryStream()));
 
       IFunctionStream functionStream = FileAnalyzer.CreateFunctionStream(langParser, filename, false);
 
