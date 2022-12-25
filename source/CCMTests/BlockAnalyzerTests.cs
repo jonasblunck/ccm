@@ -420,5 +420,26 @@ namespace CCMTests
       Assert.AreEqual(1, analyzer.ConsumeBlockCalculateAdditionalComplexity());
     }
 
-  }
+        [TestMethod]
+        public void TestPowerShellBlock_Elseif()
+        {
+            string code = @"
+{
+   if ($var -gt 0)
+   {
+        Console.WriteLine('Greater');
+   }
+   elseif ($var -gt 0)
+   {
+        Console.WriteLine('Lesser');
+   }
+}
+";
+            LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+            BlockAnalyzer analyzer = new BlockAnalyzer(parser, null, null, ParserSwitchBehavior.IgnoreCases);
+
+            Assert.AreEqual(2, analyzer.ConsumeBlockCalculateAdditionalComplexity());
+        }
+
+    }
 }

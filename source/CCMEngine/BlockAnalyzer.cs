@@ -23,7 +23,7 @@ namespace CCMEngine
     {
       this.parser = parser;
       this.conditionalsWithExpressions = new List<string>(
-        new string[] { "if", "while", "foreach", "for", "else if", });
+        new string[] { "if", "while", "foreach", "for", "else if", "elseif" });
 
       this.branchPointKeywords = new List<string>(new string[] { "catch" });
 
