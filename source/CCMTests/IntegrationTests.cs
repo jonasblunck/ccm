@@ -259,6 +259,8 @@ namespace CCMTests
                 Assert.AreEqual(2, IntegrationTests.GetByName(listener.Metrics, "New-WeakPwd").CCM);
                 Assert.AreEqual(1, IntegrationTests.GetByName(listener.Metrics, "Write-HostEx").CCM);
                 Assert.AreEqual(3, IntegrationTests.GetByName(listener.Metrics, "Throw-OnNumber").CCM);
+                Assert.AreEqual(1, IntegrationTests.GetByName(listener.Metrics, "Throw-OnNumber2").CCM);
+                Assert.AreEqual(3, IntegrationTests.GetByName(listener.Metrics, "Get-WithOr").CCM);
             }
         }
 

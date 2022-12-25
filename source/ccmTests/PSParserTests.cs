@@ -73,6 +73,24 @@ namespace CCMTests
         }
 
         [TestMethod]
+        public void TestAdvanceToFunction_WithLineBreaks()
+        {
+            string code = @"
+function Write-HostEx
+{
+    param
+    (
+        [string] $Output
+    )
+
+    Write-Host $Output
+}";
+
+            var context = PSTestContext.NewTestContext(code);
+            Assert.AreEqual("Write-HostEx", context.NextFunction());
+        }
+
+        [TestMethod]
         public void TestAdvancesStreamToBodyBlock()
         {
             string code = "function Get-NextFunction([string] $body) { Write-Host $body } ";

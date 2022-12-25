@@ -34,6 +34,28 @@ function New-WeakPwd($NumberOfCharacters = 10)
     return $Pwd
 }
 
+function Get-WithOr
+(
+   [int] $Input
+)
+{
+    if (($Input -gt 20) -or ($Input -lt 2))
+    {
+        return 2;
+    }
+
+    return 1;
+}
+
+
+function Throw-OnNumber2
+(
+   [string] $Input
+)
+{
+    Write-Host $Input
+}
+
 # adding some basic and stupid examples
 function Throw-OnNumber
 {

@@ -145,6 +145,8 @@ namespace CCMEngine
             supportedExtension.Add(".c");
             supportedExtension.Add(".js");
             supportedExtension.Add(".ts");
+            supportedExtension.Add(".ps1");
+            supportedExtension.Add(".psm1");
 
             return supportedExtension;
         }

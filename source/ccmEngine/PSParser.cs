@@ -35,6 +35,9 @@ namespace CCMEngine
 
             var functionName = this.parser.NextKeyword();
 
+            while (!this.parser.PeekNextKeyword().Equals("{"))
+                this.parser.NextKeyword();
+
             throw new CCCParserSuccessException(functionName, this.parser.StreamOffset);
         }
 

@@ -88,6 +88,8 @@ namespace CCMEngine
         {
             if (filename.ToLower().EndsWith(".js") || filename.ToLower().EndsWith(".ts"))
                 return new JSParser(parser);
+            else if (filename.ToLower().EndsWith(".psm1") || filename.ToLower().EndsWith(".ps1"))
+                return new PSParser(parser);
 
             return new CCCParser(parser, suppressMethodSignatures);
         }
