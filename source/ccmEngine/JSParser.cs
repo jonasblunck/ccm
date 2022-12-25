@@ -17,6 +17,11 @@ namespace CCMEngine
       this.parser = parser;
     }
 
+    public bool NextIsLogicOperand()
+    {
+        return this.parser.PeekNextKeyword().Equals("&&") || this.parser.PeekNextKeyword().Equals("||");
+    }
+
     public bool NextIsLocalFunction()
     {
       return NextIsFunction();

@@ -42,14 +42,9 @@ namespace CCMEngine
 
       while (")" != this.parser.PeekNextKeyword())
       {
-        if ("&&" == this.parser.PeekNextKeyword() || "||" == this.parser.PeekNextKeyword())
+        if (this.functionStream.NextIsLogicOperand())
         {
            // these should come from the function-stream?
-          ++expressions;
-          this.parser.NextKeyword();
-        }
-        else if("-and" == this.parser.PeekNextKeyword() || "-or" == this.parser.PeekNextKeyword())
-        {
           ++expressions;
           this.parser.NextKeyword();
         }

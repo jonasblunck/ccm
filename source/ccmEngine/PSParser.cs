@@ -29,6 +29,14 @@ namespace CCMEngine
             return false;
         }
 
+        public bool NextIsLogicOperand()
+        {
+            if (this.parser.PeekNextKeyword().Equals("-and") || this.parser.PeekNextKeyword().Equals("-or"))
+                return true;
+
+            return false;
+        }
+
         private void OnFunction()
         {
             this.parser.NextKeyword(); // function

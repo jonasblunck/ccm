@@ -36,6 +36,11 @@ namespace CCMEngine
       return context.ToString();
     }
 
+    public bool NextIsLogicOperand()
+    {
+        return this.parser.PeekNextKeyword().Equals("&&") || this.parser.PeekNextKeyword().Equals("||");
+    }
+
     public bool NextIsFunction()
     {
       return NextIsFunction(0);

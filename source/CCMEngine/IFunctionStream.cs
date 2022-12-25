@@ -5,9 +5,10 @@ using System.Text;
 
 namespace CCMEngine
 {
-  public interface IFunctionStream
-  {
-    void AdvanceToNextFunction();
-    bool NextIsLocalFunction();
-  }
+    public interface IFunctionStream
+    {
+        void AdvanceToNextFunction();
+        bool NextIsLocalFunction();
+        bool NextIsLogicOperand();
+    }
 }
