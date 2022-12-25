@@ -8,22 +8,8 @@ namespace CCMEngine
 {
     public class ConfigurationFile
     {
-        private List<string> excludeFiles = new List<string>();
-        private List<string> excludeClasses = new List<string>();
-        private List<string> excludeFolders = new List<string>();
-        private List<string> analyzeFolders = new List<string>();
-        private List<string> excludeFunctions = new List<string>();
-        private int numMetrics = 30;
-        private int threshold = 0;
-        private bool suppressMethodSignatures = false;
-        private ParserSwitchBehavior switchBehavior = ParserSwitchBehavior.TraditionalInclude;
-
-        public List<string> SupportedExtensions { get; private set; }
-
         public ConfigurationFile(XmlDocument doc)
         {
-            this.SupportedExtensions = new List<string>();
-
             Parse(doc);
         }
 
@@ -36,9 +22,9 @@ namespace CCMEngine
                 string setting = recursive.InnerText;
 
                 if (setting.Equals("TraditionalInclude", StringComparison.InvariantCultureIgnoreCase))
-                    this.switchBehavior = ParserSwitchBehavior.TraditionalInclude;
+                    this.SwitchStatementBehavior = ParserSwitchBehavior.TraditionalInclude;
                 else if (setting.Equals("IgnoreCases", StringComparison.InvariantCultureIgnoreCase))
-                    this.switchBehavior = ParserSwitchBehavior.IgnoreCases;
+                    this.SwitchStatementBehavior = ParserSwitchBehavior.IgnoreCases;
                 else
                     throw new InvalidOperationException(string.Format("Unknown switchStatementBehavior: {0}", setting));
             }
@@ -72,7 +58,7 @@ namespace CCMEngine
             XmlElement metrics = (XmlElement)doc.SelectSingleNode("/ccm/numMetrics");
 
             if (null != metrics)
-                this.numMetrics = int.Parse(metrics.InnerText);
+                this.NumMetrics = int.Parse(metrics.InnerText);
         }
 
         private void ParseThreshold(XmlDocument doc)
@@ -80,7 +66,7 @@ namespace CCMEngine
             XmlElement metrics = (XmlElement)doc.SelectSingleNode("/ccm/threshold");
 
             if (null != metrics)
-                this.threshold = int.Parse(metrics.InnerText);
+                this.Threshold = int.Parse(metrics.InnerText);
         }
 
         private void ParseExcludes(XmlDocument doc)
@@ -92,21 +78,21 @@ namespace CCMEngine
                 XmlNodeList fileNodes = root.SelectNodes("file");
 
                 foreach (XmlNode file in fileNodes)
-                    this.excludeFiles.Add(((XmlElement)file).InnerText);
+                    this.ExcludeFiles.Add(((XmlElement)file).InnerText);
 
                 XmlNodeList classNodes = root.SelectNodes("class");
 
                 foreach (XmlNode classNode in classNodes)
-                    this.excludeClasses.Add(((XmlElement)classNode).InnerText);
+                    this.ExcludeClasses.Add(((XmlElement)classNode).InnerText);
 
                 XmlNodeList folderNodes = root.SelectNodes("folder");
 
                 foreach (XmlNode folderNode in folderNodes)
-                    this.excludeFolders.Add(((XmlElement)folderNode).InnerText);
+                    this.ExcludeFolders.Add(((XmlElement)folderNode).InnerText);
 
                 XmlNodeList functionNodes = root.SelectNodes("function");
                 foreach (XmlNode functionNode in functionNodes)
-                    this.excludeFunctions.Add(((XmlElement)functionNode).InnerText);
+                    this.ExcludeFunctions.Add(((XmlElement)functionNode).InnerText);
             }
         }
 
@@ -119,7 +105,7 @@ namespace CCMEngine
                 XmlNodeList folderNodes = root.SelectNodes("folder");
 
                 foreach (XmlNode folder in folderNodes)
-                    this.analyzeFolders.Add(((XmlElement)folder).InnerText);
+                    this.AnalyzeFolders.Add(((XmlElement)folder).InnerText);
             }
         }
 
@@ -130,7 +116,7 @@ namespace CCMEngine
             if (null != root)
             {
                 if (root.InnerText.ToLower().Equals("yes") || root.InnerText.ToLower().Equals("1"))
-                    this.suppressMethodSignatures = true;
+                    this.SuppressMethodSignatures = true;
             }
 
         }
@@ -181,77 +167,20 @@ namespace CCMEngine
             {
                 throw new InvalidOperationException("Configuration element 'outputXML' is invalid. You should now use '<outputter>Xml</outputter>' instead.");
             }
-
         }
 
-        public List<string> AnalyzeFolders
-        {
-            get
-            {
-                return this.analyzeFolders;
-            }
-        }
-
-        public List<string> ExcludeFolders
-        {
-            get
-            {
-                return this.excludeFolders;
-            }
-        }
-
-        public List<String> ExcludeClasses
-        {
-            get
-            {
-                return this.excludeClasses;
-            }
-        }
-
-        public List<string> ExcludeFiles
-        {
-            get
-            {
-                return this.excludeFiles;
-            }
-
-        }
-
-        public List<string> ExcludeFunctions
-        {
-            get
-            {
-                return this.excludeFunctions;
-            }
-        }
-
-        public int NumMetrics
-        {
-            get
-            {
-                return this.numMetrics;
-            }
-        }
-
-        public int Threshold
-        {
-            get
-            {
-                return this.threshold;
-            }
-        }
-
+        public List<string> AnalyzeFolders { get; private set; } = new List<string>();
+        public List<string> ExcludeFolders { get; private set; } = new List<string>();
+        public List<String> ExcludeClasses { get; private set; } = new List<string>();
+        public List<string> ExcludeFiles { get; private set; } = new List<string>();
+        public List<string> ExcludeFunctions { get; private set; } = new List<string>();
+        public int NumMetrics { get; private set; } = 30;
+        public int Threshold { get; private set; }
         public bool RecursiveAnalyze { get; private set; } = false;
         public string OutputType { get; private set; } = "Text";
+        public bool SuppressMethodSignatures { get; private set; } = false;
+        public ParserSwitchBehavior SwitchStatementBehavior { get; private set; } = ParserSwitchBehavior.TraditionalInclude;
+        public List<string> SupportedExtensions { get; private set; } = new List<string>();
 
-        public bool SuppressMethodSignatures
-        {
-            get { return this.suppressMethodSignatures; }
-        }
-
-        public ParserSwitchBehavior SwitchStatementBehavior
-        {
-            get { return this.switchBehavior; }
-        }
     }
 }
