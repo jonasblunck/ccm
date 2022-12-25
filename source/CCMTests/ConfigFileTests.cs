@@ -290,7 +290,7 @@ namespace CCMTests
 
             ConfigurationFile file = new ConfigurationFile(doc);
 
-            Assert.AreEqual(7, file.SupportedExtensions.Count);
+            Assert.AreEqual(9, file.SupportedExtensions.Count);
             Assert.AreEqual(".cpp", file.SupportedExtensions[0]);
             Assert.AreEqual(".cs", file.SupportedExtensions[1]);
             Assert.AreEqual(".h", file.SupportedExtensions[2]);
@@ -298,6 +298,8 @@ namespace CCMTests
             Assert.AreEqual(".c", file.SupportedExtensions[4]);
             Assert.AreEqual(".js", file.SupportedExtensions[5]);
             Assert.AreEqual(".ts", file.SupportedExtensions[6]);
+            Assert.AreEqual(".ps1", file.SupportedExtensions[7]);
+            Assert.AreEqual(".psm1", file.SupportedExtensions[8]);
         }
 
         [TestMethod]
