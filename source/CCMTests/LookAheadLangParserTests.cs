@@ -15,7 +15,7 @@ namespace CCMTests
     {
       string code = "the lazy brown dog";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
 
       Assert.AreEqual("the", parser.PeekNextKeyword());
       Assert.AreEqual("lazy", parser.PeekNextKeyword(1));
@@ -28,7 +28,7 @@ namespace CCMTests
     {
       string code = "the lazy brown dog";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
 
       Assert.AreEqual("the", parser.PeekNextKeyword());
       Assert.AreEqual("lazy", parser.PeekNextKeyword(1));
@@ -49,7 +49,7 @@ namespace CCMTests
       string code = "std::list c = (\"kkl \"); \r\n";
       string[] tokens = new string[] { "#", " ", "\r", "\n", "\"" };
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
 
       Assert.AreEqual("std", parser.NextKeyword());
       Assert.AreEqual("::", parser.NextKeyword());
@@ -67,7 +67,7 @@ namespace CCMTests
     {
       string text = "/* this is comment ' */TEXT";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(text));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(text));
       
       Assert.AreEqual ("/* this is comment ' */", parser.ConsumeBlockComment());
       Assert.AreEqual ("TEXT", parser.NextKeyword());
@@ -79,7 +79,7 @@ namespace CCMTests
     {
       string text = "ss/*ent ' */TEXT";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(text));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(text));
 
       parser.ConsumeBlockComment();
     }
@@ -89,7 +89,7 @@ namespace CCMTests
     {
       string text = "ss/*ent ' */TEXT";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(text));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(text));
 
       try
       {
@@ -107,7 +107,7 @@ namespace CCMTests
     {
       string code = "isoperator";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
 
       Assert.AreEqual("isoperator", parser.PeekNextKeyword());
     }

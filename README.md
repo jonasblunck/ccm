@@ -3,7 +3,7 @@ CCM
 
 ## Overview
 
-CCM is a tool that analyzes c, c++, c#, javascript and TypeScript code and reports back with cyclomatic complexity metric.
+CCM is a tool that analyzes c, c++, c#, javascript, TypeScript and PowerShell code and reports back with cyclomatic complexity metric. Note at the moment, for PowerShell files (.ps1 and .psm1), only functions are analyzed, not the entire .ps1 script file. This will come in a later iteration.
 
 ## Command line usage
 To use CCM.exe, simply use one of the two modes for invocation:
@@ -55,7 +55,7 @@ Below is an example of a configuration file.
 * ```<switchStatementBehavior>``` set to 'IgnoreCases' and CCM will not count each case statement in switch blocks as a branching point.
 * ```<numMetrics>``` tells CCM how many metrics that should be reported. Only the top x functions will be reported.
 * ```<threshold>``` tells CCM to ignore units with a complexity less than configured value.
-* ```<fileExtensions>``` can be used to add additional file extensions for analysis. Per default, these are included: .h, .cpp, .c, .hpp, .cs, .js and .ts 
+* ```<fileExtensions>``` can be used to add additional file extensions for analysis. Per default, these are included: .h, .cpp, .c, .hpp, .cs, .js, .ts, .psm1 and .ps1
 
 ### Example output
 Below is example output from the Text outputter (can be contolled in the ```<outputter>``` element in the config file).

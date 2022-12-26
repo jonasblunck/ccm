@@ -19,7 +19,7 @@ namespace CCMTests
         "}              \r\n" +
         "{}";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
 
       BlockAnalyzer analyzer = new BlockAnalyzer(parser);
 
@@ -39,7 +39,7 @@ namespace CCMTests
         "}              \r\n" +
         "{}";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
 
       BlockAnalyzer analyzer = new BlockAnalyzer(parser);
 
@@ -54,9 +54,9 @@ namespace CCMTests
     {
       string code = "((x))(y)";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
 
-      BlockAnalyzer analyzer = new BlockAnalyzer(parser);
+      BlockAnalyzer analyzer = new BlockAnalyzer(parser, new CCCParser(parser, true));
 
       analyzer.CalcNumExpressionConditions();
 
@@ -71,9 +71,9 @@ namespace CCMTests
       string code = "(x)\r\n" +
                     "more";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
 
-      BlockAnalyzer analyzer = new BlockAnalyzer(parser);
+      BlockAnalyzer analyzer = new BlockAnalyzer(parser, new CCCParser(parser, false));
 
       analyzer.CalcNumExpressionConditions();
 
@@ -85,9 +85,9 @@ namespace CCMTests
     {
       string code = "((x > 2) && (y>2) || (b))";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
 
-      BlockAnalyzer analyzer = new BlockAnalyzer(parser);
+      BlockAnalyzer analyzer = new BlockAnalyzer(parser, new CCCParser(parser, true));
 
       Assert.AreEqual(2, analyzer.CalcNumExpressionConditions());
     }
@@ -101,9 +101,9 @@ namespace CCMTests
         "{ y = x; } \r\n" +
         "else";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
 
-      BlockAnalyzer analyzer = new BlockAnalyzer(parser);
+      BlockAnalyzer analyzer = new BlockAnalyzer(parser, new CCCParser(parser, true));
 
       analyzer.CalcCCOnConditionalBranch();
 
@@ -115,7 +115,7 @@ namespace CCMTests
     {
       string code = "{ }";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
 
       BlockAnalyzer analyzer = new BlockAnalyzer(parser);
 
@@ -133,9 +133,9 @@ namespace CCMTests
         " y = 4; \r\n" +
         "}";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
 
-      BlockAnalyzer analyzer = new BlockAnalyzer(parser);
+      BlockAnalyzer analyzer = new BlockAnalyzer(parser, new CCCParser(parser, true));
 
       Assert.AreEqual(2, analyzer.ConsumeBlockCalculateAdditionalComplexity()); // I'm not adding a CC value based on { and }
     }
@@ -150,7 +150,7 @@ namespace CCMTests
         "   case 2: return 3; \r\n" +
         " } } text \r\n";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
 
       BlockAnalyzer analyzer = new BlockAnalyzer(parser);
 
@@ -168,9 +168,9 @@ namespace CCMTests
         " if (x) return; \r\n" +
         "}";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
 
-      BlockAnalyzer analyzer = new BlockAnalyzer(parser);
+      BlockAnalyzer analyzer = new BlockAnalyzer(parser, new CCCParser(parser, true));
 
       Assert.AreEqual(1, analyzer.ConsumeBlockCalculateAdditionalComplexity());
     }
@@ -185,7 +185,7 @@ namespace CCMTests
         "   case 2: return 3; \r\n" +
         " } } } \r\n";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
 
       BlockAnalyzer analyzer = new BlockAnalyzer(parser);
 
@@ -204,9 +204,9 @@ namespace CCMTests
         "           break;" + 
         " } } }\r\n";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
 
-      BlockAnalyzer analyzer = new BlockAnalyzer(parser);
+      BlockAnalyzer analyzer = new BlockAnalyzer(parser, new CCCParser(parser, false));
 
       Assert.AreEqual(3, analyzer.ConsumeBlockCalculateAdditionalComplexity());
     }
@@ -221,9 +221,9 @@ namespace CCMTests
         "    return u; " +
         "} more";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
 
-      BlockAnalyzer analyzer = new BlockAnalyzer(parser);
+      BlockAnalyzer analyzer = new BlockAnalyzer(parser, new CCCParser(parser, true));
 
       Assert.AreEqual(1, analyzer.ConsumeBlockCalculateAdditionalComplexity());
       Assert.AreEqual("more", parser.NextKeyword());
@@ -237,8 +237,8 @@ namespace CCMTests
         "(x != this.parser.PeekNext()) \r\n" +
         "this.parser.NextKeyword()";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
-      BlockAnalyzer analyzer = new BlockAnalyzer(parser);
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
+      BlockAnalyzer analyzer = new BlockAnalyzer(parser, new CCCParser(parser, true));
 
       analyzer.CalcNumExpressionConditions();
 
@@ -256,9 +256,9 @@ namespace CCMTests
         "  return x;\r\n" + 
         "} ";
 
-        LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+        LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
 
-        BlockAnalyzer analyzer = new BlockAnalyzer(parser);
+        BlockAnalyzer analyzer = new BlockAnalyzer(parser, new CCCParser(parser, true));
 
         Assert.AreEqual(2, analyzer.ConsumeBlockCalculateAdditionalComplexity());
     }
@@ -276,9 +276,8 @@ namespace CCMTests
                     " }" +
                     "}";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
-
-      BlockAnalyzer analyzer = new BlockAnalyzer(parser);
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
+      BlockAnalyzer analyzer = new BlockAnalyzer(parser, new CCCParser(parser, true));
 
       Assert.AreEqual(3, analyzer.ConsumeBlockCalculateAdditionalComplexity());
     }
@@ -292,7 +291,7 @@ namespace CCMTests
                     "  catch (const ex&){} " +
                     "}";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
 
       BlockAnalyzer analyzer = new BlockAnalyzer(parser);
 
@@ -308,7 +307,7 @@ namespace CCMTests
                     "  return j; \r\n " +
                     "}";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
       BlockAnalyzer analyzer = new BlockAnalyzer(parser);
 
       Assert.AreEqual(0, analyzer.ConsumeBlockCalculateAdditionalComplexity());
@@ -324,9 +323,8 @@ namespace CCMTests
                     "  catch (const ex2&){} " +
                     "}";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
-
-      BlockAnalyzer analyzer = new BlockAnalyzer(parser);
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
+      BlockAnalyzer analyzer = new BlockAnalyzer(parser, new CCCParser(parser, true));
 
       Assert.AreEqual(2, analyzer.ConsumeBlockCalculateAdditionalComplexity());
     }
@@ -345,9 +343,8 @@ namespace CCMTests
                     "  } " +
                     "}";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
-
-      BlockAnalyzer analyzer = new BlockAnalyzer(parser);
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
+      BlockAnalyzer analyzer = new BlockAnalyzer(parser, new CCCParser(parser, false));
 
       Assert.AreEqual(2, analyzer.ConsumeBlockCalculateAdditionalComplexity());
     }
@@ -359,7 +356,7 @@ namespace CCMTests
                     " return new ParentOCModifiedEventArgs(items) { IsCommitResult = contextInCommitStage }; " +
                     "}";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
 
       BlockAnalyzer analyzer = new BlockAnalyzer(parser);
 
@@ -378,7 +375,7 @@ namespace CCMTests
                     "  } " +
                     "}";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
       BlockAnalyzer analyzer = new BlockAnalyzer(parser, null, null, ParserSwitchBehavior.TraditionalInclude);
 
       Assert.AreEqual(2, analyzer.ConsumeBlockCalculateAdditionalComplexity());
@@ -395,7 +392,7 @@ namespace CCMTests
                     "  } " +
                     "}";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
       BlockAnalyzer analyzer = new BlockAnalyzer(parser, null, null, ParserSwitchBehavior.IgnoreCases);
 
       Assert.AreEqual(0, analyzer.ConsumeBlockCalculateAdditionalComplexity());
@@ -414,11 +411,32 @@ namespace CCMTests
                     "  } " +
                     "}";
 
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
-      BlockAnalyzer analyzer = new BlockAnalyzer(parser, null, null, ParserSwitchBehavior.IgnoreCases);
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
+      BlockAnalyzer analyzer = new BlockAnalyzer(parser, new CCCParser(parser, true), null, ParserSwitchBehavior.IgnoreCases);
 
       Assert.AreEqual(1, analyzer.ConsumeBlockCalculateAdditionalComplexity());
     }
 
-  }
+        [TestMethod]
+        public void TestPowerShellBlock_Elseif()
+        {
+            string code = @"
+{
+   if ($var -gt 0)
+   {
+        Console.WriteLine('Greater');
+   }
+   elseif ($var -gt 0)
+   {
+        Console.WriteLine('Lesser');
+   }
+}
+";
+            LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
+            BlockAnalyzer analyzer = new BlockAnalyzer(parser, new PSParser(parser), null, ParserSwitchBehavior.IgnoreCases);
+
+            Assert.AreEqual(2, analyzer.ConsumeBlockCalculateAdditionalComplexity());
+        }
+
+    }
 }

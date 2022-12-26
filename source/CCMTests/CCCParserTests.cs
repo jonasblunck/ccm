@@ -54,7 +54,7 @@ namespace CCMTests
 
     private static TestContext SetupContext(string code, bool suppressMethodSignature)
     {
-      LookAheadLangParser parser = LookAheadLangParser.CreateCppParser(TestUtil.GetTextStream(code));
+      LookAheadLangParser parser = LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(code));
       CCCParser ccc = new CCCParser(parser, suppressMethodSignature);
 
       TestContext context = new TestContext(parser, ccc);

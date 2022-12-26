@@ -21,7 +21,7 @@ namespace CCM
         {
             string usage =
               "\r\nccm will analyze you code base and provide cyclomatic complexity metrics. \r\n" +
-              "Supported languages are c/c++ (.c, .cpp, .h, .hpp), c# (.cs) and javascript (.js)\r\n" +
+              "Supported languages are c/c++ (.c, .cpp, .h, .hpp), c# (.cs), javascript (.js), PowerShell (.psm1, .ps1)\r\n" +
               "\r\n\r\nUsage:\r\n" +
               "  ccm [config-file] \r\n" +
               "  ccm [path-to-analyze] [/xml] [/v] [/ignorecases] [/threshold=5] [/nummetrics=10] \r\n\r\n" +

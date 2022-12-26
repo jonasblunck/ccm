@@ -24,7 +24,7 @@ namespace CCMTests
         }
       }
 
-      Assert.Fail(string.Format("Could not found function '{0}'.", function));
+      Assert.Fail(string.Format("Could not find function '{0}'.", function));
     }
 
     [TestMethod]
