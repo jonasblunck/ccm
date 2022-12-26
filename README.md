@@ -3,7 +3,7 @@ CCM
 
 ## Overview
 
-CCM is a tool that analyzes c, c++, c#, javascript and TypeScript code and reports back with cyclomatic complexity metric.
+CCM is a tool that analyzes c, c++, c#, javascript, TypeScript and PowerShell code and reports back with cyclomatic complexity metric. Note at the moment, for PowerShell files (.ps1 and .psm1), only functions are analyzed, not the entire .ps1 script file. This will come in a later iteration.
 
 ## Command line usage
 To use CCM.exe, simply use one of the two modes for invocation:
