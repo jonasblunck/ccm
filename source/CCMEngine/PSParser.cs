@@ -16,7 +16,7 @@ namespace CCMEngine
 
         public bool NextIsLocalFunction()
         {
-            return false;  // must look into later
+            return NextIsFunction();
         }
 
         public bool NextIsFunction()
