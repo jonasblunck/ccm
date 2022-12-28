@@ -14,6 +14,7 @@ namespace CCMTests
         {
             public LookAheadLangParser TextParser { get; private set; }
             public PSParser Parser { get; private set; }
+            public BlockAnalyzer Analyzer { get; private set; }
 
             public static PSTestContext NewTestContext(string code)
             {
@@ -21,6 +22,7 @@ namespace CCMTests
 
                 context.TextParser = LookAheadLangParserFactory.CreatePowerShellParser(TestUtil.GetTextStream(code));
                 context.Parser = new PSParser(context.TextParser);
+                context.Analyzer = new BlockAnalyzer(context.TextParser, context.Parser);
 
                 return context;
             }
@@ -101,32 +103,27 @@ function Write-HostEx
             Assert.AreEqual("{", context.TextParser.PeekNextKeyword());
         }
 
-        // add more tests for multiple parameters
-        // add tests for branching statements as powershell uses -and and -or instead of && and ||
-    }
-}
-
-/*
- * 
- * Example functions we should support
- * 
-
-function Echo-BodyParams
+        [TestMethod]
+        public void TestComputesComplexityForFunction()
+        {
+            string code = @"
 {
     param
     (
-       [string] $InputText
+        [string] $Output
     )
 
-    Write-Host $InputText
-}
+    if ($Output -or $Global:Debug)
+    {
+        Write-Host $Output
+    }
+}";
 
-function Echo-HeaderParams
-(
-    [string] $InputText
-)
-{
-   Write-Host $InputText
-}
+            var context = PSTestContext.NewTestContext(code);
 
-*/
+            Assert.AreEqual(2, context.Analyzer.ConsumeBlockCalculateAdditionalComplexity());
+        }
+
+
+    }
+}

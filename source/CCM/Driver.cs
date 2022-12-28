@@ -5,6 +5,7 @@ using System.Linq;
 using CCMEngine;
 using System.Threading;
 using System.Xml;
+using System.Text;
 
 namespace CCM
 {
@@ -138,6 +139,23 @@ namespace CCM
       ThreadPool.QueueUserWorkItem(new WaitCallback(AnalyzeFilestream), parameters);
     }
 
+    public static StreamReader GetFileStream(string fileName)
+    {
+        FileInfo fileInfo = new FileInfo(fileName);
+        if (fileInfo.Extension.Equals(".ps1"))
+        {
+                StringBuilder wrapped = new StringBuilder();
+                wrapped.AppendLine($"function {fileInfo.Name}");
+                wrapped.AppendLine("{");
+                wrapped.Append(new StreamReader(fileName).ReadToEnd());
+                wrapped.Append("}");
+
+                return new StreamReader(new MemoryStream(Encoding.ASCII.GetBytes(wrapped.ToString())));
+        }
+
+        return new StreamReader(fileName);
+    }
+
     private void HandleDirectory(string basePath, string path)
     {
       if (Directory.Exists(path) && !PathShouldBeExcluded(path))
@@ -149,7 +167,7 @@ namespace CCM
           if (IsValidFile(fileName))
           {
             StartAnalyze(
-                new StreamReader(fileName),
+                Driver.GetFileStream(fileName),
                 fileName);
           }
         }
