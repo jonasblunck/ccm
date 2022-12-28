@@ -251,7 +251,7 @@ namespace CCMTests
             string filename = ResolveFilename("powershell.psm1");
             SortedListener listener = new SortedListener(10, new List<string>(), 0);
 
-            using (StreamReader stream = new StreamReader(filename))
+            using (StreamReader stream = CCM.Driver.GetFileStream(filename))
             {
                 FileAnalyzer analyzer = new FileAnalyzer(stream, listener, null, true, filename);
                 analyzer.Analyze();
@@ -265,11 +265,27 @@ namespace CCMTests
         }
 
         [TestMethod]
+        public void TestPs1File()
+        {
+            string filename = ResolveFilename("powershell-script.ps1");
+            SortedListener listener = new SortedListener(10, new List<string>(), 0);
+
+            using (StreamReader stream = CCM.Driver.GetFileStream(filename))
+            {
+                FileAnalyzer analyzer = new FileAnalyzer(stream, listener, null, true, filename);
+                analyzer.Analyze();
+
+                Assert.AreEqual(2, IntegrationTests.GetByName(listener.Metrics, "powershell-script.ps1").CCM);
+                Assert.AreEqual(3, IntegrationTests.GetByName(listener.Metrics, "Multiply").CCM);
+            }
+        }
+
+        [TestMethod]
         public void TestFileWithTabAfterEndif()
         {
             string filename = ResolveFilename("FileWithTabAfterEndIf.c");
             SortedListener listener = new SortedListener(10, new List<string>(), 0);
-            using (StreamReader stream = new StreamReader(filename))
+            using (StreamReader stream = CCM.Driver.GetFileStream(filename))
             {
                 FileAnalyzer analyzer = new FileAnalyzer(stream, listener, null, true, filename);
                 analyzer.Analyze();
