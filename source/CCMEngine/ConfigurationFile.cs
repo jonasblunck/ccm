@@ -179,7 +179,7 @@ namespace CCMEngine
         public bool RecursiveAnalyze { get; private set; } = false;
         public string OutputType { get; private set; } = "Text";
         public bool SuppressMethodSignatures { get; private set; } = false;
-        public ParserSwitchBehavior SwitchStatementBehavior { get; private set; } = ParserSwitchBehavior.TraditionalInclude;
+        public ParserSwitchBehavior SwitchStatementBehavior { get; private set; } = ParserSwitchBehavior.IgnoreCases;
         public List<string> SupportedExtensions { get; private set; } = new List<string>();
 
     }

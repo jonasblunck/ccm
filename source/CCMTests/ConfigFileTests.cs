@@ -355,7 +355,7 @@ namespace CCMTests
         }
 
         [TestMethod]
-        public void TestDefaultSwitchBehaviorIsTraditional()
+        public void TestDefaultSwitchBehaviorIsIgnoreCases()
         {
             string config = "<ccm> " +
                             " <exclude>" +
@@ -368,7 +368,7 @@ namespace CCMTests
 
             ConfigurationFile file = new ConfigurationFile(doc);
 
-            Assert.AreEqual(ParserSwitchBehavior.TraditionalInclude, file.SwitchStatementBehavior);
+            Assert.AreEqual(ParserSwitchBehavior.IgnoreCases, file.SwitchStatementBehavior);
         }
 
         [TestMethod]

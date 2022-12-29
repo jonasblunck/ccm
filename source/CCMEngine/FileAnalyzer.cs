@@ -109,8 +109,26 @@ namespace CCMEngine
             {
                 // we are done!
             }
+        }
 
+        public static StreamReader GetFileStream(string fileName)
+        {
+            FileInfo fileInfo = new FileInfo(fileName);
+            if (fileInfo.Extension.Equals(".ps1"))
+            {
+                // ugly hack to support PowerShell scripts
+                // wrap entire script into a function
 
+                StringBuilder wrapped = new StringBuilder();
+                wrapped.AppendLine($"function {fileInfo.Name}");
+                wrapped.AppendLine("{");
+                wrapped.Append(new StreamReader(fileName).ReadToEnd());
+                wrapped.Append("}");
+
+                return new StreamReader(new MemoryStream(Encoding.ASCII.GetBytes(wrapped.ToString())));
+            }
+
+            return new StreamReader(fileName);
         }
 
     }
