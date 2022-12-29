@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>ccm</id>
+    <version>1.2.0</version>
+    <authors>Jonas Blunck</authors>
+    <owners>Jonas Blunck</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>https://github.com/jonasblunck/ccm</description>
+  </metadata>
+  <files>
+    <file src=".\release\**" target="tools\" />
+  </files>
+</package>
