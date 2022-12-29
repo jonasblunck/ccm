@@ -139,23 +139,6 @@ namespace CCM
       ThreadPool.QueueUserWorkItem(new WaitCallback(AnalyzeFilestream), parameters);
     }
 
-    public static StreamReader GetFileStream(string fileName)
-    {
-        FileInfo fileInfo = new FileInfo(fileName);
-        if (fileInfo.Extension.Equals(".ps1"))
-        {
-                StringBuilder wrapped = new StringBuilder();
-                wrapped.AppendLine($"function {fileInfo.Name}");
-                wrapped.AppendLine("{");
-                wrapped.Append(new StreamReader(fileName).ReadToEnd());
-                wrapped.Append("}");
-
-                return new StreamReader(new MemoryStream(Encoding.ASCII.GetBytes(wrapped.ToString())));
-        }
-
-        return new StreamReader(fileName);
-    }
-
     private void HandleDirectory(string basePath, string path)
     {
       if (Directory.Exists(path) && !PathShouldBeExcluded(path))
@@ -166,9 +149,7 @@ namespace CCM
         {
           if (IsValidFile(fileName))
           {
-            StartAnalyze(
-                Driver.GetFileStream(fileName),
-                fileName);
+            StartAnalyze(FileAnalyzer.GetFileStream(fileName), fileName);
           }
         }
       }

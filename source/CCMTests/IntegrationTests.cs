@@ -251,7 +251,7 @@ namespace CCMTests
             string filename = ResolveFilename("powershell.psm1");
             SortedListener listener = new SortedListener(10, new List<string>(), 0);
 
-            using (StreamReader stream = CCM.Driver.GetFileStream(filename))
+            using (StreamReader stream = FileAnalyzer.GetFileStream(filename))
             {
                 FileAnalyzer analyzer = new FileAnalyzer(stream, listener, null, true, filename);
                 analyzer.Analyze();
@@ -270,7 +270,7 @@ namespace CCMTests
             string filename = ResolveFilename("powershell-script.ps1");
             SortedListener listener = new SortedListener(10, new List<string>(), 0);
 
-            using (StreamReader stream = CCM.Driver.GetFileStream(filename))
+            using (StreamReader stream = FileAnalyzer.GetFileStream(filename))
             {
                 FileAnalyzer analyzer = new FileAnalyzer(stream, listener, null, true, filename);
                 analyzer.Analyze();
@@ -281,11 +281,24 @@ namespace CCMTests
         }
 
         [TestMethod]
+        public void TestWrapsPs1File_InFunction()
+        {
+            string filename = ResolveFilename("powershell-script.ps1");
+            var reader = FileAnalyzer.GetFileStream(filename);
+
+            var textParser = LookAheadLangParserFactory.CreatePowerShellParser(reader);
+
+            Assert.AreEqual("function", textParser.NextKeyword());
+            Assert.AreEqual("powershell-script.ps1", textParser.NextKeyword());
+            Assert.AreEqual("{", textParser.NextKeyword());
+        }
+
+        [TestMethod]
         public void TestFileWithTabAfterEndif()
         {
             string filename = ResolveFilename("FileWithTabAfterEndIf.c");
             SortedListener listener = new SortedListener(10, new List<string>(), 0);
-            using (StreamReader stream = CCM.Driver.GetFileStream(filename))
+            using (StreamReader stream = FileAnalyzer.GetFileStream(filename))
             {
                 FileAnalyzer analyzer = new FileAnalyzer(stream, listener, null, true, filename);
                 analyzer.Analyze();
