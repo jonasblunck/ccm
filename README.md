@@ -96,3 +96,13 @@ CCM is built in C#, targetting .NET Core 3.1 and as such runs on Windows, Mac an
 2. .\bin\Debug\netcoreapp3.1\CCM.exe .\bin\ccm.config (will run based on the ccm.config file)
 3. .\bin\Debug\netcoreapp3.1\CCM.exe .\source (run the analyzer for the source folder)
 
+## Integration into build pipelines
+CCM can easily be integrated into build pipelines by using the xml output option. Example:
+
+```
+$output = ./bin/Release/netcoreapp3.1/ccm <path-to-analyze> /xml /threshold=11
+$xml = [xml]($output)
+$xml.ccm.metric | %{  
+   Write-Error "$($_.unit) has complexity $($_.complexity) and is classified as '$($_.classification)'"
+}
+```
