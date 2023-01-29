@@ -16,13 +16,13 @@ namespace CCMEngine
     public static string GetClassification(int ccm)
     {
       if (ccm >= 51)
-        return "untestable, very high risk";
+        return "untestable; very high risk";
       if (ccm >= 21) 
-        return "complex, high risk";
+        return "complex; high risk";
       else if (ccm >= 11)
-        return "more complex, moderate risk";
+        return "more complex; moderate risk";
       else
-        return "simple, without much risk";
+        return "simple without much risk";
     }
 
     public ccMetric(string filename, string unit, int ccm)
