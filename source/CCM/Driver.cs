@@ -6,7 +6,7 @@ using CCMEngine;
 using System.Threading;
 using System.Xml;
 using System.Text;
-
+using System.Text.RegularExpressions;
 namespace CCM
 {
   internal struct AnalyzeThreadParameters
@@ -109,20 +109,43 @@ namespace CCM
 
     public bool PathShouldBeExcluded(string path)
     {
-      if (this.configFile != null)
-      {
-        string[] pathFolderNames = path
-          .Split(new char[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries);
-
-        foreach (string pathToExclude in this.configFile.ExcludeFolders)
+        if (this.configFile != null)
         {
-          if (path.ToLower().StartsWith(pathToExclude.ToLower()))
-            return true;
+            string[] pathFolderNames = path
+                .Split(new char[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries);
 
-          if (pathFolderNames.Contains(pathToExclude, StringComparer.InvariantCultureIgnoreCase))
-            return true;
+            foreach (string pathToExclude in this.configFile.ExcludeFolders)
+            {
+                if (path.ToLower().StartsWith(pathToExclude.ToLower()))
+                    return true;
+
+                
+
+                try
+                {
+                        //Check if a regex path was provided. If it was, treat it as a RegEx. If not, treat it as a literal string
+                        //This is in here because "path" was getting treated the same as "path*"
+                        string escapedInput = Regex.Escape(pathToExclude);
+                        if (escapedInput != pathToExclude)
+                        {
+
+                            Regex regex = new Regex(pathToExclude, RegexOptions.IgnoreCase);
+                            if (regex.IsMatch(path))
+                                return true;
+                        }
+                        else //Path without special regex characters
+                        {
+                            if (pathFolderNames.Contains(pathToExclude, StringComparer.InvariantCultureIgnoreCase))
+                                return true;
+                        }
+                    }
+                catch (ArgumentException)
+                {
+                    // The provided regex pattern is invalid
+                    return false;
+                }
+            }
         }
-      }
 
       return false;
     }
