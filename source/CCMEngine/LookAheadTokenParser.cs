@@ -168,7 +168,7 @@ namespace CCMEngine
       }
     }
 
-    public string MoveToNextLine()
+    public string MoveToNextLine(bool trimNewline = true)
     {
       StringBuilder sb = new StringBuilder();
       sb.Append(this.buffer.ToArray());
@@ -186,7 +186,16 @@ namespace CCMEngine
       {
       }
 
-      return sb.ToString().TrimEnd(new char[] { '\r', '\n' });
+            return sb.ToString();
+
+        if (trimNewline)
+        {
+            return sb.ToString().TrimEnd(new char[] { '\r', '\n' });
+        }
+        else
+        {
+            return sb.ToString();
+        }
     }
 
     public string PeekNextToken()
