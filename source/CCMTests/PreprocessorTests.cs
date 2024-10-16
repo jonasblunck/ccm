@@ -577,7 +577,27 @@ namespace CCMTests
 
       Assert.AreEqual("text", result.Trim());
       Assert.AreEqual(text.Length, result.Length);
-
     }
+
+
+    [TestMethod]
+    public void Test()
+    {
+        string text = @"
+//
+
+function B()
+{
+}
+";
+        Preprocessor preprocessor = new Preprocessor(TestUtil.GetTextStream(text));
+
+        StreamReader afterProcessing = TestUtil.GetTextStream(preprocessor.Process().ReadToEnd());
+        StreamReader orignal = TestUtil.GetTextStream(text);
+
+        Assert.AreEqual(TestUtil.GetNumLines(orignal), TestUtil.GetNumLines(afterProcessing));
+    }
+        
+
   }
 }

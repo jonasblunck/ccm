@@ -15,6 +15,14 @@ namespace CCMTests
       return sr;
     }
 
-    
+    public static int GetNumLines(StreamReader reader)
+    {
+        int lines = 0;
+
+        while (null != reader.ReadLine())
+            lines++;
+
+        return lines;
+    }
   }
 }
