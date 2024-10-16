@@ -172,9 +172,13 @@ namespace CCMEngine
       string line = this.parser.MoveToNextLine();
 
       foreach (char c in line)
-        this.sb.Append(" ");
+      {
+          if (c != '\n')
+              this.sb.Append(" ");
+          else
+              this.sb.Append(c);
+      }
 
-      this.sb.Append("\r\n");
       return line;
     }
 

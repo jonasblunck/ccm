@@ -90,6 +90,7 @@ namespace CCMTests
 
       Assert.AreEqual(true, Preprocessor.NextIsEndif(LookAheadLangParserFactory.CreateCppParser(TestUtil.GetTextStream(text))));
     }
+
     [TestMethod]
     public void IfDef1()
     {
@@ -98,9 +99,9 @@ namespace CCMTests
                     "#endif\r\n";
 
       string expect =
-                    "         \r\n" +
+                    "          \n" +
                     "the lazy brown fox \r\n" +
-                    "      \r\n";
+                    "       \n";
 
 
       Preprocessor preprocessor = new Preprocessor(TestUtil.GetTextStream(text));
@@ -330,7 +331,7 @@ namespace CCMTests
       Preprocessor preprocessor = new Preprocessor(TestUtil.GetTextStream(text));
       StreamReader result = preprocessor.Process();
 
-      Assert.AreEqual("   \r\ntext", result.ReadToEnd());
+      Assert.AreEqual("    \ntext", result.ReadToEnd());
     }
 
     [TestMethod]
@@ -577,7 +578,27 @@ namespace CCMTests
 
       Assert.AreEqual("text", result.Trim());
       Assert.AreEqual(text.Length, result.Length);
-
     }
+
+
+    [TestMethod]
+    public void TestCanConsumeCommentWithoutChangingLineCount()
+    {
+        string text = @"
+//
+
+function B()
+{
+}
+";
+        Preprocessor preprocessor = new Preprocessor(TestUtil.GetTextStream(text));
+
+        StreamReader afterProcessing = TestUtil.GetTextStream(preprocessor.Process().ReadToEnd());
+        StreamReader orignal = TestUtil.GetTextStream(text);
+
+        Assert.AreEqual(TestUtil.GetNumLines(orignal), TestUtil.GetNumLines(afterProcessing));
+    }
+        
+
   }
 }

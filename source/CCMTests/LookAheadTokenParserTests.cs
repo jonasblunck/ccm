@@ -118,7 +118,7 @@ namespace CCMTests
       LookAheadTokenParser parser = new LookAheadTokenParser(TestUtil.GetTextStream(text), new string[] { }, false);
 
       Assert.AreEqual("This", parser.PeekNextToken());
-      Assert.AreEqual("This is a line \\ ", parser.MoveToNextLine());
+      Assert.AreEqual("This is a line \\ \r\n", parser.MoveToNextLine());
       Assert.AreEqual("And", parser.PeekNextToken());
     }
 

@@ -186,7 +186,7 @@ namespace CCMEngine
       {
       }
 
-      return sb.ToString().TrimEnd(new char[] { '\r', '\n' });
+      return sb.ToString();
     }
 
     public string PeekNextToken()
