@@ -751,6 +751,18 @@ namespace CCMTests
       Assert.AreEqual("funcis", context.NextFunction());
       Assert.AreEqual("{", context.parser.PeekNextKeyword());
     }
-  }  
 
+    [TestMethod]
+    public void TestStaticMemberField()
+    {
+        string code = "public class MyClass { " +
+                        "public static int MyClassInteger { get; } " +
+                        "public static void MyClassFunction() {} } ";
+
+        TestContext context = CCCParserTests.SetupContext(code, true);
+        Assert.AreEqual("MyClass::MyClassFunction", context.NextFunction());
+        Assert.AreEqual("{", context.parser.PeekNextKeyword());
+    }
+
+  }  
 }

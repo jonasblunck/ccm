@@ -329,6 +329,15 @@ namespace CCMEngine
           this.contexts.Add(this.parser.NextKeyword());
           this.parser.NextKeyword(); // consume "{"
         }
+        else if (this.parser.PeekNextKeyword(1).Equals("{") &&
+                (this.parser.PeekNextKeyword(2).Equals("get") || this.parser.PeekNextKeyword(2).Equals("set")))
+        {
+            // construct: [public int MyField] { get; }
+            while (this.parser.PeekNextKeyword() != "}")
+                this.parser.NextKeyword();
+
+            this.parser.NextKeyword();
+        }
         else if ((this.parser.PeekNextKeyword().Equals("get") ||
                   this.parser.PeekNextKeyword().Equals("set")) &&
                  (this.parser.PeekNextKeyword(1).Equals("{")))
