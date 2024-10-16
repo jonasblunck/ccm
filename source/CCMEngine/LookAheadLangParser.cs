@@ -102,7 +102,7 @@ namespace CCMEngine
             return PeekNextKeyword(0);
         }
 
-        public string MoveToNextLine(bool trimNewLine = true)
+        public string MoveToNextLine()
         {
             StringBuilder sb = new StringBuilder();
 
@@ -110,7 +110,7 @@ namespace CCMEngine
                 sb.Append(tok);
 
             this.tokens.Clear();
-            sb.Append(this.parser.MoveToNextLine(trimNewLine));
+            sb.Append(this.parser.MoveToNextLine());
 
             return sb.ToString();
         }

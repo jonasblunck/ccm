@@ -169,17 +169,15 @@ namespace CCMEngine
 
     private string MoveToNextLineSpaceOutput()
     {
-      string line = this.parser.MoveToNextLine(false);
+      string line = this.parser.MoveToNextLine();
 
-            foreach (char c in line)
-            {
-                if (c != '\n')
-                    this.sb.Append(" ");
-                else
-                    this.sb.Append(c);
-            }
-
-       //     this.sb.Append(System.Environment.NewLine);
+      foreach (char c in line)
+      {
+          if (c != '\n')
+              this.sb.Append(" ");
+          else
+              this.sb.Append(c);
+      }
 
       return line;
     }
