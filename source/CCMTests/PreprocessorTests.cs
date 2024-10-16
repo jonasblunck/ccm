@@ -581,7 +581,7 @@ namespace CCMTests
 
 
     [TestMethod]
-    public void Test()
+    public void TestCanConsumeCommentWithoutChangingLineCount()
     {
         string text = @"
 //
