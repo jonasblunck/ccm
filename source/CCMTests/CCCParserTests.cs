@@ -680,7 +680,6 @@ namespace CCMTests
     }
 
     [TestMethod]
-    [Ignore]
     public void TestCShardFieldsDoesNotThrowParserOff()
     {
       string code = "public class X { " +
