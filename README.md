@@ -74,7 +74,7 @@ Program::Main(string [ ] args) : 2 - simple, without much risk (\Program.cs@line
 ```
 
 ## Platforms
-CCM is built in C#, targetting .NET Core 3.1 and as such runs on Windows, Mac and other platform supported by .NET Core.  
+CCM is built in C#, targetting .NET 8, and as such runs on Windows, Mac and other platform supported by .NET Core.  
 
 ## Building the code
 
@@ -85,22 +85,22 @@ CCM is built in C#, targetting .NET Core 3.1 and as such runs on Windows, Mac an
 ## Running the tool on Mac OS X 
 
 ### Different options
-1. ./bin/Release/net6.0/ccm (this will display the help)
-1. ./bin/Release/net6.0/ccm ./bin/ccm.config (will run based on the ccm.config file)
-2. ./bin/Release/net6.0/ccm ./source (run the analyzer for the source folder)
+1. ./bin/Release/net8.0/ccm (this will display the help)
+1. ./bin/Release/net8.0/ccm ./bin/ccm.config (will run based on the ccm.config file)
+2. ./bin/Release/net8.0/ccm ./source (run the analyzer for the source folder)
 
 ## Running the tool on Windows 
 
 ### Different options
-1. .\bin\Release\net6.0\CCM.exe (this will display the help)
-2. .\bin\Release\net6.0\CCM.exe .\bin\ccm.config (will run based on the ccm.config file)
-3. .\bin\Release\net6.0\CCM.exe .\source (run the analyzer for the source folder)
+1. .\bin\Release\net8.0\CCM.exe (this will display the help)
+2. .\bin\Release\net8.0\CCM.exe .\bin\ccm.config (will run based on the ccm.config file)
+3. .\bin\Release\net8.0\CCM.exe .\source (run the analyzer for the source folder)
 
 ## Integration into build pipelines
 CCM can easily be integrated into build pipelines by using the xml output option. Example:
 
 ```
-$output = ./bin/Release/netcoreapp3.1/ccm <path-to-analyze> /xml /threshold=11
+$output = ./bin/Release/net8.0/ccm <path-to-analyze> /xml /threshold=11
 $xml = [xml]($output)
 $xml.ccm.metric | %{  
    Write-Error "$($_.unit) has complexity $($_.complexity) and is classified as '$($_.classification)'"
