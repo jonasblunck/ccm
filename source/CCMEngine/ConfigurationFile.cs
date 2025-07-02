@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 using System.Linq;
+using System.Security;
 
 namespace CCMEngine
 {
@@ -69,6 +70,69 @@ namespace CCMEngine
                 this.Threshold = int.Parse(metrics.InnerText);
         }
 
+        //Function to allow environment variable substitution within a string
+        //It will check for three different syntax styles: ${NAME}, $NAME, and %NAME%
+        private static string SubstituteEnvironmentVariables(string input)
+        {
+            var result = input;
+
+            try
+            {
+                // Find all occurrences of "${VAR_NAME}" pattern (Linux-style with brackets)
+                var startIndex = result.IndexOf("${");
+                while (startIndex != -1)
+                {
+                    var endIndex = result.IndexOf("}", startIndex + 2);
+                    if (endIndex != -1)
+                    {
+                        var variableName = result.Substring(startIndex + 2, endIndex - startIndex - 2);
+                        var variableValue = Environment.GetEnvironmentVariable(variableName);
+                        result = result.Replace("${" + variableName + "}", variableValue ?? string.Empty);
+                    }
+                    startIndex = result.IndexOf("${", endIndex + 1);
+                }
+
+                // Find all occurrences of "$VAR_NAME" pattern (Linux-style without brackets)
+                startIndex = result.IndexOf("$");
+                while (startIndex != -1)
+                {
+                    var endIndex = result.IndexOfAny(new[] { ' ', '\t', '\n', '\r', '$' }, startIndex + 1);
+                    if (endIndex == -1)
+                        endIndex = result.Length;
+
+                    var variableName = result.Substring(startIndex + 1, endIndex - startIndex - 1);
+                    var variableValue = Environment.GetEnvironmentVariable(variableName);
+                    result = result.Replace("$" + variableName, variableValue ?? string.Empty);
+
+                    startIndex = result.IndexOf("$", endIndex + 1);
+                }
+
+                // Find all occurrences of "%VAR_NAME%" pattern (Windows-style)
+                startIndex = result.IndexOf("%");
+                while (startIndex != -1)
+                {
+                    var endIndex = result.IndexOf("%", startIndex + 1);
+                    if (endIndex != -1)
+                    {
+                        var variableName = result.Substring(startIndex + 1, endIndex - startIndex - 1);
+                        var variableValue = Environment.GetEnvironmentVariable(variableName);
+                        result = result.Replace("%" + variableName + "%", variableValue ?? string.Empty);
+                    }
+                    startIndex = result.IndexOf("%", endIndex + 1);
+                }
+            }
+            catch (SecurityException ex)
+            {
+                Console.WriteLine($"Error trying to process '{input}': {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while processing '{input}': {ex.Message}");
+            }
+
+            return result;
+        }
+
         private void ParseExcludes(XmlDocument doc)
         {
             XmlNode root = doc.SelectSingleNode("/ccm/exclude");
@@ -105,7 +169,11 @@ namespace CCMEngine
                 XmlNodeList folderNodes = root.SelectNodes("folder");
 
                 foreach (XmlNode folder in folderNodes)
-                    this.AnalyzeFolders.Add(((XmlElement)folder).InnerText);
+                {
+                    //Allow substituting env vars in this folder string
+                    string translatedFolder = SubstituteEnvironmentVariables(((XmlElement)folder).InnerText);
+                    this.AnalyzeFolders.Add(translatedFolder);
+                }
             }
         }
 
