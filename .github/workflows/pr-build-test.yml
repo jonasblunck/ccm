@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-and-test:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
     - name: Checkout code
@@ -38,7 +38,7 @@ jobs:
   build-matrix:
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [macos-latest]
         dotnet-version: ['8.0.x']
     
     runs-on: ${{ matrix.os }}
