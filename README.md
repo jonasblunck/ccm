@@ -78,9 +78,9 @@ CCM is built in C#, targetting .NET 8, and as such runs on Windows, Mac and othe
 
 ## Building the code
 
-1. Open ccm.sln in Visual Studio 2022
-2. Build 
-3. Run unit tests (optional)
+1. Install .NET 8 SDK and runtime
+2. Build by running: 'dotnet build'
+3. Run tests by running: 'dotnet test'
 
 ## Running the tool on Mac OS X 
 
