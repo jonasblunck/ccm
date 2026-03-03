@@ -13,7 +13,7 @@
     <OutputPath>..\..\bin\Release</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CCMEngine\ccmEngine.csproj" />
+    <ProjectReference Include="..\CCMEngine\CCMEngine.csproj" />
   </ItemGroup>
 
 </Project>
